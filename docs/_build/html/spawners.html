@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>} &mdash; JupyterHub  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="]" href="services.html" />
+    <link rel="prev" title="}" href="authenticators.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> JupyterHub
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="rest.html">}</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Configuration Guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="authenticators.html">}</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">}</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#id34">}</a></li>
+<li class="toctree-l1"><a class="reference internal" href="services.html">]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="services.html#id18">]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config-examples.html">}</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config-examples.html#id18">}</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">The JupyterHub API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">JupyterHub</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>}</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/spawners.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <p># Spawners</p>
+<p>A [Spawner][] starts each single-user notebook server.
+The Spawner represents an abstract interface to a process,
+and a custom Spawner needs to be able to take three actions:</p>
+<ul class="simple">
+<li><p>start the process</p></li>
+<li><p>poll whether the process is still running</p></li>
+<li><p>stop the process</p></li>
+</ul>
+<p>## Examples
+Custom Spawners for JupyterHub can be found on the [JupyterHub wiki](<a class="reference external" href="https://github.com/jupyterhub/jupyterhub/wiki/Spawners">https://github.com/jupyterhub/jupyterhub/wiki/Spawners</a>).
+Some examples include:</p>
+<ul>
+<li><p>[DockerSpawner](<a class="reference external" href="https://github.com/jupyterhub/dockerspawner">https://github.com/jupyterhub/dockerspawner</a>) for spawning user servers in Docker containers
+* <cite>dockerspawner.DockerSpawner</cite> for spawning identical Docker containers for</p>
+<blockquote>
+<div><p>each users</p>
+</div></blockquote>
+<ul class="simple">
+<li><p><cite>dockerspawner.SystemUserSpawner</cite> for spawning Docker containers with an
+environment and home directory for each users</p></li>
+<li><p>both <cite>DockerSpawner</cite> and <cite>SystemUserSpawner</cite> also work with Docker Swarm for
+launching containers on remote machines</p></li>
+</ul>
+</li>
+<li><p>[SudoSpawner](<a class="reference external" href="https://github.com/jupyterhub/sudospawner">https://github.com/jupyterhub/sudospawner</a>) enables JupyterHub to
+run without being root, by spawning an intermediate process via <cite>sudo</cite></p></li>
+<li><p>[BatchSpawner](<a class="reference external" href="https://github.com/jupyterhub/batchspawner">https://github.com/jupyterhub/batchspawner</a>) for spawning remote
+servers using batch systems</p></li>
+<li><p>[RemoteSpawner](<a class="reference external" href="https://github.com/zonca/remotespawner">https://github.com/zonca/remotespawner</a>) to spawn notebooks
+and a remote server and tunnel the port via SSH</p></li>
+</ul>
+<p>## Spawner control methods</p>
+<p>### Spawner.start</p>
+<p><cite>Spawner.start</cite> should start the single-user server for a single user.
+Information about the user can be retrieved from <cite>self.user</cite>,
+an object encapsulating the user’s name, authentication, and server info.</p>
+<p>When <cite>Spawner.start</cite> returns, it should have stored the IP and port
+of the single-user server in <cite>self.user.server</cite>.</p>
+<p><strong>NOTE:</strong> When writing coroutines, <em>never</em> <cite>yield</cite> in between a database change and a commit.</p>
+<p>Most <cite>Spawner.start</cite> functions will look similar to this example:</p>
+<p><a href="#id1"><span class="problematic" id="id2">``</span></a><a href="#id3"><span class="problematic" id="id4">`</span></a>python
+def start(self):</p>
+<blockquote>
+<div><p>self.user.server.ip = ‘localhost’ # or other host or IP address, as seen by the Hub
+self.user.server.port = 1234 # port selected somehow
+self.db.commit() # always commit before yield, if modifying db values
+yield self._actually_start_server_somehow()</p>
+</div></blockquote>
+<p><a href="#id5"><span class="problematic" id="id6">``</span></a><a href="#id7"><span class="problematic" id="id8">`</span></a></p>
+<p>When <cite>Spawner.start</cite> returns, the single-user server process should actually be running,
+not just requested. JupyterHub can handle <cite>Spawner.start</cite> being very slow
+(such as PBS-style batch queues, or instantiating whole AWS instances)
+via relaxing the <cite>Spawner.start_timeout</cite> config value.</p>
+<p>### Spawner.poll</p>
+<p><cite>Spawner.poll</cite> should check if the spawner is still running.
+It should return <cite>None</cite> if it is still running,
+and an integer exit status, otherwise.</p>
+<p>For the local process case, <cite>Spawner.poll</cite> uses <cite>os.kill(PID, 0)</cite>
+to check if the local process is still running.</p>
+<p>### Spawner.stop</p>
+<p><cite>Spawner.stop</cite> should stop the process. It must be a tornado coroutine, which should return when the process has finished exiting.</p>
+<p>## Spawner state</p>
+<p>JupyterHub should be able to stop and restart without tearing down
+single-user notebook servers. To do this task, a Spawner may need to persist
+some information that can be restored later.
+A JSON-able dictionary of state can be used to store persisted information.</p>
+<p>Unlike start, stop, and poll methods, the state methods must not be coroutines.</p>
+<p>For the single-process case, the Spawner state is only the process ID of the server:</p>
+<p><a href="#id9"><span class="problematic" id="id10">``</span></a><a href="#id11"><span class="problematic" id="id12">`</span></a>python
+def get_state(self):</p>
+<blockquote>
+<div><p>“””get the current state”””
+state = super().get_state()
+if self.pid:</p>
+<blockquote>
+<div><p>state[‘pid’] = self.pid</p>
+</div></blockquote>
+<p>return state</p>
+</div></blockquote>
+<dl>
+<dt>def load_state(self, state):</dt><dd><p>“””load state from the database”””
+super().load_state(state)
+if ‘pid’ in state:</p>
+<blockquote>
+<div><p>self.pid = state[‘pid’]</p>
+</div></blockquote>
+</dd>
+<dt>def clear_state(self):</dt><dd><p>“””clear any state (called after shutdown)”””
+super().clear_state()
+self.pid = 0</p>
+</dd>
+</dl>
+<p><a href="#id13"><span class="problematic" id="id14">``</span></a><a href="#id15"><span class="problematic" id="id16">`</span></a></p>
+<p>## Spawner options form</p>
+<p>(new in 0.4)</p>
+<p>Some deployments may want to offer options to users to influence how their servers are started.
+This may include cluster-based deployments, where users specify what resources should be available,
+or docker-based deployments where users can select from a list of base images.</p>
+<p>This feature is enabled by setting <cite>Spawner.options_form</cite>, which is an HTML form snippet
+inserted unmodified into the spawn form.
+If the <cite>Spawner.options_form</cite> is defined, when a user tries to start their server, they will be directed to a form page, like this:</p>
+<p>![spawn-form](images/spawn-form.png)</p>
+<p>If <cite>Spawner.options_form</cite> is undefined, the user’s server is spawned directly, and no spawn page is rendered.</p>
+<p>See [this example](<a class="reference external" href="https://github.com/jupyterhub/jupyterhub/blob/master/examples/spawn-form/jupyterhub_config.py">https://github.com/jupyterhub/jupyterhub/blob/master/examples/spawn-form/jupyterhub_config.py</a>) for a form that allows custom CLI args for the local spawner.</p>
+<p>### <cite>Spawner.options_from_form</cite></p>
+<p>Options from this form will always be a dictionary of lists of strings, e.g.:</p>
+<p><a href="#id17"><span class="problematic" id="id18">``</span></a><a href="#id19"><span class="problematic" id="id20">`</span></a>python
+{</p>
+<blockquote>
+<div><p>‘integer’: [‘5’],
+‘text’: [‘some text’],
+‘select’: [‘a’, ‘b’],</p>
+</div></blockquote>
+<section id="id21">
+<h1>}<a class="headerlink" href="#id21" title="Permalink to this heading">¶</a></h1>
+<p>When <cite>formdata</cite> arrives, it is passed through <cite>Spawner.options_from_form(formdata)</cite>,
+which is a method to turn the form data into the correct structure.
+This method must return a dictionary, and is meant to interpret the lists-of-strings into the correct types. For example, the <cite>options_from_form</cite> for the above form would look like:</p>
+<p><a href="#id22"><span class="problematic" id="id23">``</span></a><a href="#id24"><span class="problematic" id="id25">`</span></a>python
+def options_from_form(self, formdata):</p>
+<blockquote>
+<div><p>options = {}
+options[‘integer’] = int(formdata[‘integer’][0]) # single integer value
+options[‘text’] = formdata[‘text’][0] # single string value
+options[‘select’] = formdata[‘select’] # list already correct
+options[‘notinform’] = ‘extra info’ # not in the form at all
+return options</p>
+</div></blockquote>
+<p><a href="#id26"><span class="problematic" id="id27">``</span></a><a href="#id28"><span class="problematic" id="id29">`</span></a></p>
+<p>which would return:</p>
+<p><a href="#id30"><span class="problematic" id="id31">``</span></a><a href="#id32"><span class="problematic" id="id33">`</span></a>python
+{</p>
+<blockquote>
+<div><p>‘integer’: 5,
+‘text’: ‘some text’,
+‘select’: [‘a’, ‘b’],
+‘notinform’: ‘extra info’,</p>
+</div></blockquote>
+</section>
+<section id="id34">
+<h1>}<a class="headerlink" href="#id34" title="Permalink to this heading">¶</a></h1>
+<p>When <cite>Spawner.start</cite> is called, this dictionary is accessible as <cite>self.user_options</cite>.</p>
+<p>[Spawner]: <a class="reference external" href="https://github.com/jupyterhub/jupyterhub/blob/master/jupyterhub/spawner.py">https://github.com/jupyterhub/jupyterhub/blob/master/jupyterhub/spawner.py</a></p>
+<p>## Writing a custom spawner</p>
+<p>If you are interested in building a custom spawner, you can read [this tutorial](<a class="reference external" href="http://jupyterhub-tutorial.readthedocs.io/en/latest/spawners.html">http://jupyterhub-tutorial.readthedocs.io/en/latest/spawners.html</a>).</p>
+<p>## Spawners, resource limits, and guarantees (Optional)</p>
+<p>Some spawners of the single-user notebook servers allow setting limits or
+guarantees on resources, such as CPU and memory. To provide a consistent
+experience for sysadmins and users, we provide a standard way to set and
+discover these resource limits and guarantees, such as for memory and CPU. For
+the limits and guarantees to be useful, the spawner must implement support for
+them.</p>
+<p>### Memory Limits &amp; Guarantees</p>
+<p><cite>c.Spawner.mem_limit</cite>: A <strong>limit</strong> specifies the <em>maximum amount of memory</em>
+that may be allocated, though there is no promise that the maximum amount will
+be available. In supported spawners, you can set <cite>c.Spawner.mem_limit</cite> to
+limit the total amount of memory that a single-user notebook server can
+allocate. Attempting to use more memory than this limit will cause errors. The
+single-user notebook server can discover its own memory limit by looking at
+the environment variable <cite>MEM_LIMIT</cite>, which is specified in absolute bytes.</p>
+<p><cite>c.Spawner.mem_guarantee</cite>: Sometimes, a <strong>guarantee</strong> of a <em>minumum amount of
+memory</em> is desirable. In this case, you can set <cite>c.Spawner.mem_guarantee</cite> to
+to provide a guarantee that at minimum this much memory will always be
+available for the single-user notebook server to use. The environment variable
+<cite>MEM_GUARANTEE</cite> will also be set in the single-user notebook server.</p>
+<p>The spawner’s underlying system or cluster is responsible for enforcing these
+limits and providing these guarantees. If these values are set to <cite>None</cite>, no
+limits or guarantees are provided, and no environment values are set.</p>
+<p>### CPU Limits &amp; Guarantees</p>
+<p><cite>c.Spawner.cpu_limit</cite>: In supported spawners, you can set
+<cite>c.Spawner.cpu_limit</cite> to limit the total number of cpu-cores that a
+single-user notebook server can use. These can be fractional - <cite>0.5</cite> means 50%
+of one CPU core, <cite>4.0</cite> is 4 cpu-cores, etc. This value is also set in the
+single-user notebook server’s environment variable <cite>CPU_LIMIT</cite>. The limit does
+not claim that you will be able to use all the CPU up to your limit as other
+higher priority applications might be taking up CPU.</p>
+<p><cite>c.Spawner.cpu_guarantee</cite>: You can set <cite>c.Spawner.cpu_guarantee</cite> to provide a
+guarantee for CPU usage. The environment variable <cite>CPU_GUARANTEE</cite> will be set
+in the single-user notebook server when a guarantee is being provided.</p>
+<p>The spawner’s underlying system or cluster is responsible for enforcing these
+limits and providing these guarantees. If these values are set to <cite>None</cite>, no
+limits or guarantees are provided, and no environment values are set.</p>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="authenticators.html" class="btn btn-neutral float-left" title="}" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="services.html" class="btn btn-neutral float-right" title="]" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2016, Project Jupyter team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

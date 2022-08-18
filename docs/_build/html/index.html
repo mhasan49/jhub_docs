@@ -1,112 +1,191 @@
-
 <!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
-
-    <title>Welcome to jhub_docs’s documentation! &#8212; jhub_docs 0.5 documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="_static/doctools.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JupyterHub &mdash; JupyterHub  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+    <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-   
-  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
-  
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+    <link rel="next" title="&lt;no title&gt;" href="quickstart.html" /> 
+</head>
 
-  </head><body>
-  
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="#" class="icon icon-home"> JupyterHub
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="rest.html">}</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Configuration Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="authenticators.html">}</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spawners.html">}</a></li>
+<li class="toctree-l1"><a class="reference internal" href="spawners.html#id34">}</a></li>
+<li class="toctree-l1"><a class="reference internal" href="services.html">]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="services.html#id18">]</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config-examples.html">}</a></li>
+<li class="toctree-l1"><a class="reference internal" href="config-examples.html#id18">}</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/index.html">The JupyterHub API</a></li>
+</ul>
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          
+        </div>
+      </div>
+    </nav>
 
-          <div class="body" role="main">
-            
-  <section id="welcome-to-jhub-docs-s-documentation">
-<h1>Welcome to jhub_docs’s documentation!<a class="headerlink" href="#welcome-to-jhub-docs-s-documentation" title="Permalink to this heading">¶</a></h1>
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">JupyterHub</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home"></a> &raquo;</li>
+      <li>JupyterHub</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="jupyterhub">
+<h1>JupyterHub<a class="headerlink" href="#jupyterhub" title="Permalink to this heading">¶</a></h1>
+<p>With JupyterHub you can create a <strong>multi-user Hub</strong> which spawns, manages,
+and proxies multiple instances of the single-user
+<a class="reference external" href="https://jupyter-notebook.readthedocs.io/en/latest/">Jupyter notebook</a> server.
+Due to its flexibility and customization options, JupyterHub can be used to
+serve notebooks to a class of students, a corporate data science group, or a
+scientific research group.</p>
+<a class="reference internal image-reference" href="_images/jhub-parts.png"><img alt="JupyterHub subsystems" class="align-right" src="_images/jhub-parts.png" style="width: 40%;" /></a>
+<p>Three subsystems make up JupyterHub:</p>
+<ul class="simple">
+<li><p>a multi-user <strong>Hub</strong> (tornado process)</p></li>
+<li><p>a <strong>configurable http proxy</strong> (node-http-proxy)</p></li>
+<li><p>multiple <strong>single-user Jupyter notebook servers</strong> (Python/IPython/tornado)</p></li>
+</ul>
+<p>JupyterHub’s basic flow of operations includes:</p>
+<ul class="simple">
+<li><p>The Hub spawns a proxy</p></li>
+<li><p>The proxy forwards all requests to the Hub by default</p></li>
+<li><p>The Hub handles user login and spawns single-user servers on demand</p></li>
+<li><p>The Hub configures the proxy to forward URL prefixes to the single-user notebook servers</p></li>
+</ul>
+<p>For convenient administration of the Hub, its users, and <a class="reference internal" href="services.html"><span class="doc">]</span></a>
+(added in version 7.0), JupyterHub also provides a
+<a class="reference external" href="http://petstore.swagger.io/?url=https://raw.githubusercontent.com/jupyterhub/jupyterhub/master/docs/rest-api.yml#!/default">REST API</a>.</p>
+<section id="contents">
+<h2>Contents<a class="headerlink" href="#contents" title="Permalink to this heading">¶</a></h2>
+<p><strong>User Guide</strong></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="quickstart.html"><span class="doc">&lt;no title&gt;</span></a></p></li>
+<li><p><a class="reference internal" href="getting-started.html"><span class="doc">&lt;no title&gt;</span></a></p></li>
+<li><p><a class="reference internal" href="howitworks.html"><span class="doc">&lt;no title&gt;</span></a></p></li>
+<li><p><a class="reference internal" href="websecurity.html"><span class="doc">&lt;no title&gt;</span></a></p></li>
+<li><p><a class="reference internal" href="rest.html"><span class="doc">}</span></a></p></li>
+</ul>
+<div class="toctree-wrapper compound">
+</div>
+<p><strong>Configuration Guide</strong></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="authenticators.html"><span class="doc">}</span></a></p></li>
+<li><p><a class="reference internal" href="spawners.html"><span class="doc">}</span></a></p></li>
+<li><p><a class="reference internal" href="services.html"><span class="doc">]</span></a></p></li>
+<li><p><a class="reference internal" href="config-examples.html"><span class="doc">}</span></a></p></li>
+<li><p><a class="reference internal" href="upgrading.html"><span class="doc">&lt;no title&gt;</span></a></p></li>
+<li><p><a class="reference internal" href="troubleshooting.html"><span class="doc">&lt;no title&gt;</span></a></p></li>
+</ul>
+<div class="toctree-wrapper compound">
+</div>
+<p><strong>API Reference</strong></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="api/index.html"><span class="doc">The JupyterHub API</span></a></p></li>
+</ul>
+<div class="toctree-wrapper compound">
+</div>
+<p><strong>About JupyterHub</strong></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="changelog.html"><span class="doc">&lt;no title&gt;</span></a></p></li>
+<li><p><a class="reference internal" href="contributor-list.html"><span class="doc">&lt;no title&gt;</span></a></p></li>
+</ul>
 <div class="toctree-wrapper compound">
 </div>
 </section>
 <section id="indices-and-tables">
-<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this heading">¶</a></h1>
+<h2>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this heading">¶</a></h2>
 <ul class="simple">
 <li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
 <li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
-<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
 </ul>
+</section>
+<section id="questions-suggestions">
+<h2>Questions? Suggestions?<a class="headerlink" href="#questions-suggestions" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://groups.google.com/forum/#!forum/jupyter">Jupyter mailing list</a></p></li>
+<li><p><a class="reference external" href="https://jupyter.org">Jupyter website</a></p></li>
+</ul>
+</section>
 </section>
 
 
+           </div>
           </div>
-          
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="quickstart.html" class="btn btn-neutral float-right" title="&lt;no title&gt;" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2016, Project Jupyter team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="#">jhub_docs</a></h1>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
 
-
-
-
-
-
-
-
-<h3>Navigation</h3>
-
-<div class="relations">
-<h3>Related Topics</h3>
-<ul>
-  <li><a href="#">Documentation overview</a><ul>
-  </ul></li>
-</ul>
-</div>
-<div id="searchbox" style="display: none" role="search">
-  <h3 id="searchlabel">Quick search</h3>
-    <div class="searchformwrapper">
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
-      <input type="submit" value="Go" />
-    </form>
-    </div>
-</div>
-<script>document.getElementById('searchbox').style.display = "block"</script>
-
-
-
-
-
-
-
-
-        </div>
-      </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="footer">
-      &copy;2022, Hasan.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.1.1</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
-      
-      |
-      <a href="_sources/index.rst.txt"
-          rel="nofollow">Page source</a>
-    </div>
-
-    
-
-    
-  </body>
+</body>
 </html>
