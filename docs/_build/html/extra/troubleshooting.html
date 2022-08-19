@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>&lt;no title&gt; &mdash; JupyterHub  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> JupyterHub
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Configuration Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../authenticators.html">}</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">The JupyterHub API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">JupyterHub</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>&lt;no title&gt;</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/extra/troubleshooting.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <p># Troubleshooting</p>
+<p>When troubleshooting, you may see unexpected behaviors or receive an error
+message. This section provide links for identifying the cause of the
+problem and how to resolve it.</p>
+<p>[<em>Behavior</em>](#behavior)
+- JupyterHub proxy fails to start
+- sudospawner fails to run</p>
+<p>[<em>Errors</em>](#errors)
+- 500 error after spawning my single-user server</p>
+<p>[<em>How do I…?</em>](#how-do-i)
+- Use a chained SSL certificate
+- Install JupyterHub without a network connection
+- I want access to the whole filesystem, but still default users to their home directory
+- How do I increase the number of pySpark executors on YARN?
+- How do I use JupyterLab’s prerelease version with JupyterHub?
+- How do I set up JupyterHub for a workshop (when users are not known ahead of time)?</p>
+<p>[<em>Troubleshooting commands</em>](#troubleshooting-commands)</p>
+<p>## Behavior</p>
+<p>### JupyterHub proxy fails to start</p>
+<p>If you have tried to start the JupyterHub proxy and it fails to start:</p>
+<ul class="simple">
+<li><p>check if the JupyterHub IP configuration setting is
+<code class="docutils literal notranslate"><span class="pre">c.JupyterHub.ip</span> <span class="pre">=</span> <span class="pre">'*'</span></code>; if it is, try <code class="docutils literal notranslate"><span class="pre">c.JupyterHub.ip</span> <span class="pre">=</span> <span class="pre">''</span></code></p></li>
+<li><p>Try starting with <code class="docutils literal notranslate"><span class="pre">jupyterhub</span> <span class="pre">--ip=0.0.0.0</span></code></p></li>
+</ul>
+<p>### sudospawner fails to run</p>
+<p>If the sudospawner script is not found in the path, sudospawner will not run.
+To avoid this, specify sudospawner’s absolute path. For example, start
+jupyterhub with:</p>
+<blockquote>
+<div><p>jupyterhub –SudoSpawner.sudospawner_path=’/absolute/path/to/sudospawner’</p>
+</div></blockquote>
+<p>or add:</p>
+<blockquote>
+<div><p>c.SudoSpawner.sudospawner_path = ‘/absolute/path/to/sudospawner’</p>
+</div></blockquote>
+<p>to the config file, <cite>jupyterhub_config.py</cite>.</p>
+<p>## Errors</p>
+<p>### 500 error after spawning my single-user server</p>
+<p>You receive a 500 error when accessing the URL <cite>/user/&lt;your_name&gt;/…</cite>.
+This is often seen when your single-user server cannot verify your user cookie
+with the Hub.</p>
+<p>There are two likely reasons for this:</p>
+<ol class="arabic simple">
+<li><p>The single-user server cannot connect to the Hub’s API (networking
+configuration problems)</p></li>
+<li><p>The single-user server cannot <em>authenticate</em> its requests (invalid token)</p></li>
+</ol>
+<p>#### Symptoms</p>
+<p>The main symptom is a failure to load <em>any</em> page served by the single-user
+server, met with a 500 error. This is typically the first page at <cite>/user/&lt;your_name&gt;</cite>
+after logging in or clicking “Start my server”. When a single-user notebook server
+receives a request, the notebook server makes an API request to the Hub to
+check if the cookie corresponds to the right user. This request is logged.</p>
+<p>If everything is working, the response logged will be similar to this:</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">200</span> <span class="pre">GET</span> <span class="pre">/hub/api/authorizations/cookie/jupyter-hub-token-name/[secret]</span> <span class="pre">(&#64;10.0.1.4)</span> <span class="pre">6.10ms</span>
+<span class="pre">`</span></code></p>
+<p>You should see a similar 200 message, as above, in the Hub log when you first
+visit your single-user notebook server. If you don’t see this message in the log, it
+may mean that your single-user notebook server isn’t connecting to your Hub.</p>
+<p>If you see 403 (forbidden) like this, it’s a token problem:</p>
+<p><code class="docutils literal notranslate"><span class="pre">`</span>
+<span class="pre">403</span> <span class="pre">GET</span> <span class="pre">/hub/api/authorizations/cookie/jupyter-hub-token-name/[secret]</span> <span class="pre">(&#64;10.0.1.4)</span> <span class="pre">4.14ms</span>
+<span class="pre">`</span></code></p>
+<p>Check the logs of the single-user notebook server, which may have more detailed
+information on the cause.</p>
+<p>#### Causes and resolutions</p>
+<p>##### No authorization request</p>
+<p>If you make an API request and it is not received by the server, you likely
+have a network configuration issue. Often, this happens when the Hub is only
+listening on 127.0.0.1 (default) and the single-user servers are not on the
+same ‘machine’ (can be physically remote, or in a docker container or VM). The
+fix for this case is to make sure that <cite>c.JupyterHub.hub_ip</cite> is an address
+that all single-user servers can connect to, e.g.:</p>
+<p><code class="docutils literal notranslate"><span class="pre">`python</span>
+<span class="pre">c.JupyterHub.hub_ip</span> <span class="pre">=</span> <span class="pre">'10.0.0.1'</span>
+<span class="pre">`</span></code></p>
+<p>##### 403 GET /hub/api/authorizations/cookie</p>
+<p>If you receive a 403 error, the API token for the single-user server is likely
+invalid. Commonly, the 403 error is caused by resetting the JupyterHub
+database (either removing jupyterhub.sqlite or some other action) while
+leaving single-user servers running. This happens most frequently when using
+DockerSpawner, because Docker’s default behavior is to stop/start containers
+which resets the JupyterHub database, rather than destroying and recreating
+the container every time. This means that the same API token is used by the
+server for its whole life, until the container is rebuilt.</p>
+<p>The fix for this Docker case is to remove any Docker containers seeing this
+issue (typically all containers created before a certain point in time):</p>
+<blockquote>
+<div><p>docker rm -f jupyter-name</p>
+</div></blockquote>
+<p>After this, when you start your server via JupyterHub, it will build a
+new container. If this was the underlying cause of the issue, you should see
+your server again.</p>
+<p>## How do I…?</p>
+<p>### Use a chained SSL certificate</p>
+<p>Some certificate providers, i.e. Entrust, may provide you with a chained
+certificate that contains multiple files. If you are using a chained
+certificate you will need to concatenate the individual files by appending the
+chain cert and root cert to your host cert:</p>
+<blockquote>
+<div><p>cat your_host.crt chain.crt root.crt &gt; your_host-chained.crt</p>
+</div></blockquote>
+<p>You would then set in your <cite>jupyterhub_config.py</cite> file the <cite>ssl_key</cite> and
+<cite>ssl_cert</cite> as follows:</p>
+<blockquote>
+<div><p>c.JupyterHub.ssl_cert = your_host-chained.crt
+c.JupyterHub.ssl_key = your_host.key</p>
+</div></blockquote>
+<p>#### Example</p>
+<p>Your certificate provider gives you the following files: <cite>example_host.crt</cite>,
+<cite>Entrust_L1Kroot.txt</cite> and <cite>Entrust_Root.txt</cite>.</p>
+<p>Concatenate the files appending the chain cert and root cert to your host cert:</p>
+<blockquote>
+<div><p>cat example_host.crt Entrust_L1Kroot.txt Entrust_Root.txt &gt; example_host-chained.crt</p>
+</div></blockquote>
+<p>You would then use the <cite>example_host-chained.crt</cite> as the value for
+JupyterHub’s <cite>ssl_cert</cite>. You may pass this value as a command line option
+when starting JupyterHub or more conveniently set the <cite>ssl_cert</cite> variable in
+JupyterHub’s configuration file, <cite>jupyterhub_config.py</cite>. In <cite>jupyterhub_config.py</cite>,
+set:</p>
+<blockquote>
+<div><p>c.JupyterHub.ssl_cert = /path/to/example_host-chained.crt
+c.JupyterHub.ssl_key = /path/to/example_host.key</p>
+</div></blockquote>
+<p>where <cite>ssl_cert</cite> is example-chained.crt and ssl_key to your private key.</p>
+<p>Then restart JupyterHub.</p>
+<p>See also [JupyterHub SSL encryption](getting-started.md#ssl-encryption).</p>
+<p>### Install JupyterHub without a network connection</p>
+<p>Both conda and pip can be used without a network connection. You can make your
+own repository (directory) of conda packages and/or wheels, and then install
+from there instead of the internet.</p>
+<p>For instance, you can install JupyterHub with pip and configurable-http-proxy
+with npmbox:</p>
+<blockquote>
+<div><p>pip wheel jupyterhub
+npmbox configurable-http-proxy</p>
+</div></blockquote>
+<p>### I want access to the whole filesystem, but still default users to their home directory</p>
+<p>Setting the following in <cite>jupyterhub_config.py</cite> will configure access to
+the entire filesystem and set the default to the user’s home directory.</p>
+<blockquote>
+<div><p>c.Spawner.notebook_dir = ‘/’
+c.Spawner.default_url = ‘/home/%U’ # %U will be replaced with the username</p>
+</div></blockquote>
+<p>### How do I increase the number of pySpark executors on YARN?</p>
+<p>From the command line, pySpark executors can be configured using a command
+similar to this one:</p>
+<blockquote>
+<div><p>pyspark –total-executor-cores 2 –executor-memory 1G</p>
+</div></blockquote>
+<p>[Cloudera documentation for configuring spark on YARN applications](<a class="reference external" href="https://www.cloudera.com/documentation/enterprise/latest/topics/cdh_ig_running_spark_on_yarn.html#spark_on_yarn_config_apps">https://www.cloudera.com/documentation/enterprise/latest/topics/cdh_ig_running_spark_on_yarn.html#spark_on_yarn_config_apps</a>)
+provides additional information. The [pySpark configuration documentation](<a class="reference external" href="https://spark.apache.org/docs/0.9.0/configuration.html">https://spark.apache.org/docs/0.9.0/configuration.html</a>)
+is also helpful for programmatic configuration examples.</p>
+<p>### How do I use JupyterLab’s prerelease version with JupyterHub?</p>
+<p>While JupyterLab is still under active development, we have had users
+ask about how to try out JupyterLab with JupyterHub.</p>
+<p>You need to install and enable the JupyterLab extension system-wide,
+then you can change the default URL to <cite>/lab</cite>.</p>
+<p>For instance:</p>
+<blockquote>
+<div><p>pip install jupyterlab
+jupyter serverextension enable –py jupyterlab –sys-prefix</p>
+</div></blockquote>
+<p>The important thing is that jupyterlab is installed and enabled in the
+single-user notebook server environment. For system users, this means
+system-wide, as indicated above. For Docker containers, it means inside
+the single-user docker image, etc.</p>
+<p>In <cite>jupyterhub_config.py</cite>, configure the Spawner to tell the single-user
+notebook servers to default to JupyterLab:</p>
+<blockquote>
+<div><p>c.Spawner.default_url = ‘/lab’</p>
+</div></blockquote>
+<p>### How do I set up JupyterHub for a workshop (when users are not known ahead of time)?</p>
+<ol class="arabic simple">
+<li><p>Set up JupyterHub using OAuthenticator for GitHub authentication</p></li>
+<li><p>Configure whitelist to be an empty list in` jupyterhub_config.py`</p></li>
+<li><p>Configure admin list to have workshop leaders be listed with administrator privileges.</p></li>
+</ol>
+<p>Users will need a GitHub account to login and be authenticated by the Hub.</p>
+<p>## Troubleshooting commands</p>
+<p>The following commands provide additional detail about installed packages,
+versions, and system information that may be helpful when troubleshooting
+a JupyterHub deployment. The commands are:</p>
+<ul class="simple">
+<li><p>System and deployment information</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">`bash</span>
+<span class="pre">jupyter</span> <span class="pre">troubleshooting</span>
+<span class="pre">`</span></code></p>
+<ul class="simple">
+<li><p>Kernel information</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">`bash</span>
+<span class="pre">jupyter</span> <span class="pre">kernelspec</span> <span class="pre">list</span>
+<span class="pre">`</span></code></p>
+<ul class="simple">
+<li><p>Debug logs when running JupyterHub</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">`bash</span>
+<span class="pre">jupyterhub</span> <span class="pre">--debug</span>
+<span class="pre">`</span></code></p>
+<p>## Toree integration with HDFS rack awareness script</p>
+<p>The Apache Toree kernel will an issue, when running with JupyterHub, if the standard HDFS
+rack awareness script is used. This will materialize in the logs as a repeated WARN:</p>
+<p><a href="#id1"><span class="problematic" id="id2">``</span></a><a href="#id3"><span class="problematic" id="id4">`</span></a>bash
+16/11/29 16:24:20 WARN ScriptBasedMapping: Exception running /etc/hadoop/conf/topology_script.py some.ip.address
+ExitCodeException exitCode=1:   File “/etc/hadoop/conf/topology_script.py”, line 63</p>
+<blockquote>
+<div><dl class="simple">
+<dt>print rack</dt><dd><p>^</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>SyntaxError: Missing parentheses in call to ‘print’</p>
+<blockquote>
+<div><p>at <cite>org.apache.hadoop.util.Shell.runCommand(Shell.java:576)</cite></p>
+</div></blockquote>
+<p><a href="#id5"><span class="problematic" id="id6">``</span></a><a href="#id7"><span class="problematic" id="id8">`</span></a></p>
+<p>In order to resolve this issue, there are two potential options.</p>
+<p>1. Update HDFS core-site.xml, so the parameter “net.topology.script.file.name” points to a custom
+script (e.g. /etc/hadoop/conf/custom_topology_script.py). Copy the original script and change the first line point
+to a python two installation (e.g. /usr/bin/python).
+2. In spark-env.sh add a Python 2 installation to your path (e.g. export PATH=/opt/anaconda2/bin:$PATH).</p>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2016, Project Jupyter team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

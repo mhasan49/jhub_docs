@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>&lt;no title&gt; &mdash; JupyterHub  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> JupyterHub
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Configuration Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../authenticators.html">}</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">The JupyterHub API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">JupyterHub</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>&lt;no title&gt;</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/extra/quickstart.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <p># Quickstart - Installation</p>
+<p>## Prerequisites</p>
+<p><strong>Before installing JupyterHub</strong>, you will need:</p>
+<ul>
+<li><p>[Python](<a class="reference external" href="https://www.python.org/downloads/">https://www.python.org/downloads/</a>) 3.3 or greater</p>
+<p>An understanding of using [<cite>pip</cite>](<a class="reference external" href="https://pip.pypa.io/en/stable/">https://pip.pypa.io/en/stable/</a>) or
+[<cite>conda</cite>](<a class="reference external" href="http://conda.pydata.org/docs/get-started.html">http://conda.pydata.org/docs/get-started.html</a>) for
+installing Python packages is helpful.</p>
+</li>
+<li><p>[nodejs/npm](<a class="reference external" href="https://www.npmjs.com/">https://www.npmjs.com/</a>)</p>
+<p>[Install nodejs/npm](<a class="reference external" href="https://docs.npmjs.com/getting-started/installing-node">https://docs.npmjs.com/getting-started/installing-node</a>),
+using your operating system’s package manager. For example, install on Linux
+(Debian/Ubuntu) using:</p>
+<p><code class="docutils literal notranslate"><span class="pre">`bash</span>
+<span class="pre">sudo</span> <span class="pre">apt-get</span> <span class="pre">install</span> <span class="pre">npm</span> <span class="pre">nodejs-legacy</span>
+<span class="pre">`</span></code></p>
+<p>(The <cite>nodejs-legacy</cite> package installs the <cite>node</cite> executable and is currently
+required for npm to work on Debian/Ubuntu.)</p>
+</li>
+<li><p>TLS certificate and key for HTTPS communication</p></li>
+<li><p>Domain name</p></li>
+</ul>
+<p><strong>Before running the single-user notebook servers</strong> (which may be on the same
+system as the Hub or not):</p>
+<ul class="simple">
+<li><p>[Jupyter Notebook](<a class="reference external" href="https://jupyter.readthedocs.io/en/latest/install.html">https://jupyter.readthedocs.io/en/latest/install.html</a>)
+version 4 or greater</p></li>
+</ul>
+<p>## Installation</p>
+<p>JupyterHub can be installed with <cite>pip</cite> or <cite>conda</cite> and the proxy with <cite>npm</cite>:</p>
+<p><strong>pip, npm:</strong>
+<code class="docutils literal notranslate"><span class="pre">`bash</span>
+<span class="pre">python3</span> <span class="pre">-m</span> <span class="pre">pip</span> <span class="pre">install</span> <span class="pre">jupyterhub</span>
+<span class="pre">npm</span> <span class="pre">install</span> <span class="pre">-g</span> <span class="pre">configurable-http-proxy</span>
+<span class="pre">`</span></code></p>
+<p><strong>conda</strong> (one command installs jupyterhub and proxy):
+<code class="docutils literal notranslate"><span class="pre">`bash</span>
+<span class="pre">conda</span> <span class="pre">install</span> <span class="pre">-c</span> <span class="pre">conda-forge</span> <span class="pre">jupyterhub</span>
+<span class="pre">`</span></code></p>
+<p>To test your installation:</p>
+<p><code class="docutils literal notranslate"><span class="pre">`bash</span>
+<span class="pre">jupyterhub</span> <span class="pre">-h</span>
+<span class="pre">configurable-http-proxy</span> <span class="pre">-h</span>
+<span class="pre">`</span></code></p>
+<p>If you plan to run notebook servers locally, you will need also to install
+Jupyter notebook:</p>
+<p><strong>pip:</strong>
+<code class="docutils literal notranslate"><span class="pre">`bash</span>
+<span class="pre">python3</span> <span class="pre">-m</span> <span class="pre">pip</span> <span class="pre">install</span> <span class="pre">notebook</span>
+<span class="pre">`</span></code></p>
+<p><strong>conda:</strong>
+<code class="docutils literal notranslate"><span class="pre">`bash</span>
+<span class="pre">conda</span> <span class="pre">install</span> <span class="pre">notebook</span>
+<span class="pre">`</span></code></p>
+<p>## Start the Hub server</p>
+<p>To start the Hub server, run the command:</p>
+<p><code class="docutils literal notranslate"><span class="pre">`bash</span>
+<span class="pre">jupyterhub</span>
+<span class="pre">`</span></code></p>
+<p>Visit <cite>https://localhost:8000</cite> in your browser, and sign in with your unix
+credentials.</p>
+<p>To allow multiple users to sign into the Hub server, you must start <cite>jupyterhub</cite> as a <em>privileged user</em>, such as root:</p>
+<p><code class="docutils literal notranslate"><span class="pre">`bash</span>
+<span class="pre">sudo</span> <span class="pre">jupyterhub</span>
+<span class="pre">`</span></code></p>
+<p>The [wiki](<a class="reference external" href="https://github.com/jupyterhub/jupyterhub/wiki/Using-sudo-to-run-JupyterHub-without-root-privileges">https://github.com/jupyterhub/jupyterhub/wiki/Using-sudo-to-run-JupyterHub-without-root-privileges</a>)
+describes how to run the server as a <em>less privileged user</em>, which requires
+additional configuration of the system.</p>
+<hr class="docutils" />
+<p>## Basic Configuration</p>
+<p>The [getting started document](docs/source/getting-started.md) contains
+detailed information abouts configuring a JupyterHub deployment.</p>
+<p>The JupyterHub <strong>tutorial</strong> provides a video and documentation that explains
+and illustrates the fundamental steps for installation and configuration.
+[Repo](<a class="reference external" href="https://github.com/jupyterhub/jupyterhub-tutorial">https://github.com/jupyterhub/jupyterhub-tutorial</a>)
+| [Tutorial documentation](<a class="reference external" href="http://jupyterhub-tutorial.readthedocs.io/en/latest/">http://jupyterhub-tutorial.readthedocs.io/en/latest/</a>)</p>
+<p>#### Generate a default configuration file</p>
+<p>Generate a default config file:</p>
+<blockquote>
+<div><p>jupyterhub –generate-config</p>
+</div></blockquote>
+<p>#### Customize the configuration, authentication, and process spawning</p>
+<p>Spawn the server on <code class="docutils literal notranslate"><span class="pre">10.0.1.2:443</span></code> with <strong>https</strong>:</p>
+<blockquote>
+<div><p>jupyterhub –ip 10.0.1.2 –port 443 –ssl-key my_ssl.key –ssl-cert my_ssl.cert</p>
+</div></blockquote>
+<p>The authentication and process spawning mechanisms can be replaced,
+which should allow plugging into a variety of authentication or process
+control environments. Some examples, meant as illustration and testing of this
+concept, are:</p>
+<ul class="simple">
+<li><p>Using GitHub OAuth instead of PAM with [OAuthenticator](<a class="reference external" href="https://github.com/jupyterhub/oauthenticator">https://github.com/jupyterhub/oauthenticator</a>)</p></li>
+<li><p>Spawning single-user servers with Docker, using the [DockerSpawner](<a class="reference external" href="https://github.com/jupyterhub/dockerspawner">https://github.com/jupyterhub/dockerspawner</a>)</p></li>
+</ul>
+<hr class="docutils" />
+<p>## Alternate Installation using Docker</p>
+<p>A ready to go [docker image for JupyterHub](<a class="reference external" href="https://hub.docker.com/r/jupyterhub/jupyterhub/">https://hub.docker.com/r/jupyterhub/jupyterhub/</a>)
+gives a straightforward deployment of JupyterHub.</p>
+<p><em>Note: This `jupyterhub/jupyterhub` docker image is only an image for running
+the Hub service itself. It does not provide the other Jupyter components, such
+as Notebook installation, which are needed by the single-user servers.
+To run the single-user servers, which may be on the same system as the Hub or
+not, Jupyter Notebook version 4 or greater must be installed.</em></p>
+<p>#### Starting JupyterHub with docker</p>
+<p>The JupyterHub docker image can be started with the following command:</p>
+<blockquote>
+<div><p>docker run -d –name jupyterhub jupyterhub/jupyterhub jupyterhub</p>
+</div></blockquote>
+<p>This command will create a container named <cite>jupyterhub</cite> that you can
+<strong>stop and resume</strong> with <cite>docker stop/start</cite>.</p>
+<p>The Hub service will be listening on all interfaces at port 8000, which makes
+this a good choice for <strong>testing JupyterHub on your desktop or laptop</strong>.</p>
+<p>If you want to run docker on a computer that has a public IP then you should
+(as in MUST) <strong>secure it with ssl</strong> by adding ssl options to your docker
+configuration or using a ssl enabled proxy.</p>
+<p>[Mounting volumes](<a class="reference external" href="https://docs.docker.com/engine/userguide/containers/dockervolumes/">https://docs.docker.com/engine/userguide/containers/dockervolumes/</a>)
+will allow you to <strong>store data outside the docker image (host system) so it will be persistent</strong>,
+even when you start a new image.</p>
+<p>The command <cite>docker exec -it jupyterhub bash</cite> will spawn a root shell in your
+docker container. You can <strong>use the root shell to create system users in the container</strong>.
+These accounts will be used for authentication in JupyterHub’s default
+configuration.</p>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2016, Project Jupyter team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

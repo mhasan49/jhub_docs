@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>} &mdash; JupyterHub  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> JupyterHub
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Configuration Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../authenticators.html">}</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../api/index.html">The JupyterHub API</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">JupyterHub</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>}</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/extra/config-examples.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <p># Configuration examples</p>
+<p>This section provides configuration files and tips for the following
+configurations:</p>
+<ul class="simple">
+<li><p>Example with GitHub OAuth</p></li>
+<li><p>Example with nginx reverse proxy</p></li>
+</ul>
+<p>## Example with GitHub OAuth</p>
+<p>In the following example, we show a configuration files for a fairly standard JupyterHub deployment with the following assumptions:</p>
+<ul class="simple">
+<li><p>JupyterHub is running on a single cloud server</p></li>
+<li><p>Using SSL on the standard HTTPS port 443</p></li>
+<li><p>You want to use GitHub OAuth (using oauthenticator) for login</p></li>
+<li><p>You need the users to exist locally on the server</p></li>
+<li><p>You want users’ notebooks to be served from <cite>~/assignments</cite> to allow users to browse for notebooks within
+other users home directories</p></li>
+<li><p>You want the landing page for each user to be a Welcome.ipynb notebook in their assignments directory.</p></li>
+<li><p>All runtime files are put into <cite>/srv/jupyterhub</cite> and log files in <cite>/var/log</cite>.</p></li>
+</ul>
+<p>Let’s start out with <cite>jupyterhub_config.py</cite>:</p>
+<p><a href="#id1"><span class="problematic" id="id2">``</span></a><a href="#id3"><span class="problematic" id="id4">`</span></a>python
+# jupyterhub_config.py
+c = get_config()</p>
+<p>import os
+pjoin = os.path.join</p>
+<p>runtime_dir = os.path.join(‘/srv/jupyterhub’)
+ssl_dir = pjoin(runtime_dir, ‘ssl’)
+if not os.path.exists(ssl_dir):</p>
+<blockquote>
+<div><p>os.makedirs(ssl_dir)</p>
+</div></blockquote>
+<p># https on :443
+c.JupyterHub.port = 443
+c.JupyterHub.ssl_key = pjoin(ssl_dir, ‘ssl.key’)
+c.JupyterHub.ssl_cert = pjoin(ssl_dir, ‘ssl.cert’)</p>
+<p># put the JupyterHub cookie secret and state db
+# in /var/run/jupyterhub
+c.JupyterHub.cookie_secret_file = pjoin(runtime_dir, ‘cookie_secret’)
+c.JupyterHub.db_url = pjoin(runtime_dir, ‘jupyterhub.sqlite’)
+# or <cite>–db=/path/to/jupyterhub.sqlite</cite> on the command-line</p>
+<p># put the log file in /var/log
+c.JupyterHub.extra_log_file = ‘/var/log/jupyterhub.log’</p>
+<p># use GitHub OAuthenticator for local users</p>
+<p>c.JupyterHub.authenticator_class = ‘oauthenticator.LocalGitHubOAuthenticator’
+c.GitHubOAuthenticator.oauth_callback_url = os.environ[‘OAUTH_CALLBACK_URL’]
+# create system users that don’t exist yet
+c.LocalAuthenticator.create_system_users = True</p>
+<p># specify users and admin
+c.Authenticator.whitelist = {‘rgbkrk’, ‘minrk’, ‘jhamrick’}
+c.Authenticator.admin_users = {‘jhamrick’, ‘rgbkrk’}</p>
+<p># start single-user notebook servers in ~/assignments,
+# with ~/assignments/Welcome.ipynb as the default landing page
+# this config could also be put in
+# /etc/ipython/ipython_notebook_config.py
+c.Spawner.notebook_dir = ‘~/assignments’
+c.Spawner.args = [’–NotebookApp.default_url=/notebooks/Welcome.ipynb’]
+<a href="#id5"><span class="problematic" id="id6">``</span></a><a href="#id7"><span class="problematic" id="id8">`</span></a></p>
+<p>Using the GitHub Authenticator [requires a few additional env variables][oauth-setup],
+which we will need to set when we launch the server:</p>
+<p><code class="docutils literal notranslate"><span class="pre">`bash</span>
+<span class="pre">export</span> <span class="pre">GITHUB_CLIENT_ID=github_id</span>
+<span class="pre">export</span> <span class="pre">GITHUB_CLIENT_SECRET=github_secret</span>
+<span class="pre">export</span> <span class="pre">OAUTH_CALLBACK_URL=https://example.com/hub/oauth_callback</span>
+<span class="pre">export</span> <span class="pre">CONFIGPROXY_AUTH_TOKEN=super-secret</span>
+<span class="pre">jupyterhub</span> <span class="pre">-f</span> <span class="pre">/path/to/aboveconfig.py</span>
+<span class="pre">`</span></code></p>
+<p>## Example with nginx reverse proxy</p>
+<p>In the following example, we show configuration files for a JupyterHub server running locally on port <cite>8000</cite> but accessible from the outside on the standard SSL port <cite>443</cite>. This could be useful if the JupyterHub server machine is also hosting other domains or content on <cite>443</cite>. The goal here is to have the following be true:</p>
+<ul class="simple">
+<li><p>JupyterHub is running on a server, accessed <em>only</em> via <cite>HUB.DOMAIN.TLD:443</cite></p></li>
+<li><p>On the same machine, <cite>NO_HUB.DOMAIN.TLD</cite> strictly serves different content, also on port <cite>443</cite></p></li>
+<li><p><cite>nginx</cite> is used to manage the web servers / reverse proxy (which means that only nginx will be able to bind two servers to <cite>443</cite>)</p></li>
+<li><p>After testing, the server in question should be able to score an A+ on the Qualys SSL Labs [SSL Server Test](<a class="reference external" href="https://www.ssllabs.com/ssltest/">https://www.ssllabs.com/ssltest/</a>)</p></li>
+</ul>
+<p>Let’s start out with <cite>jupyterhub_config.py</cite>:</p>
+<p><code class="docutils literal notranslate"><span class="pre">`python</span>
+<span class="pre">#</span> <span class="pre">Force</span> <span class="pre">the</span> <span class="pre">proxy</span> <span class="pre">to</span> <span class="pre">only</span> <span class="pre">listen</span> <span class="pre">to</span> <span class="pre">connections</span> <span class="pre">to</span> <span class="pre">127.0.0.1</span>
+<span class="pre">c.JupyterHub.ip</span> <span class="pre">=</span> <span class="pre">'127.0.0.1'</span>
+<span class="pre">`</span></code></p>
+<p>The <cite>nginx</cite> server config files are fairly standard fare except for the two <cite>location</cite> blocks within the <cite>HUB.DOMAIN.TLD</cite> config file:</p>
+<p><a href="#id9"><span class="problematic" id="id10">``</span></a><a href="#id11"><span class="problematic" id="id12">`</span></a>bash
+# HTTP server to redirect all 80 traffic to SSL/HTTPS
+server {</p>
+<blockquote>
+<div><p>listen 80;
+server_name HUB.DOMAIN.TLD;</p>
+<p># Tell all requests to port 80 to be 302 redirected to HTTPS
+return 302 <a class="reference external" href="https://$host$request_uri">https://$host$request_uri</a>;</p>
+</div></blockquote>
+<p>}</p>
+<p># HTTPS server to handle JupyterHub
+server {</p>
+<blockquote>
+<div><blockquote>
+<div><p>listen 443;
+ssl on;</p>
+<p>server_name HUB.DOMAIN.TLD;</p>
+<p>ssl_certificate /etc/letsencrypt/live/HUB.DOMAIN.TLD/fullchain.pem
+ssl_certificate_key /etc/letsencrypt/live/HUB.DOMAIN.TLD/privkey.pem</p>
+<p>ssl_protocols TLSv1 TLSv1.1 TLSv1.2;</p>
+</div></blockquote>
+<p>ssl_prefer_server_ciphers on;
+ssl_dhparam /etc/ssl/certs/dhparam.pem;
+ssl_ciphers ‘ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-DSS-AES128-GCM-SHA256:kEDH+AESGCM:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA:ECDHE-ECDSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-DSS-AES128-SHA256:DHE-RSA-AES256-SHA256:DHE-DSS-AES256-SHA:DHE-RSA-AES256-SHA:AES128-GCM-SHA256:AES256-GCM-SHA384:AES128-SHA256:AES256-SHA256:AES128-SHA:AES256-SHA:AES:CAMELLIA:DES-CBC3-SHA:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!MD5:!PSK:!aECDH:!EDH-DSS-DES-CBC3-SHA:!EDH-RSA-DES-CBC3-SHA:!KRB5-DES-CBC3-SHA’;
+ssl_session_timeout 1d;
+ssl_session_cache shared:SSL:50m;
+ssl_stapling on;
+ssl_stapling_verify on;
+add_header Strict-Transport-Security max-age=15768000;</p>
+<blockquote>
+<div><p># Managing literal requests to the JupyterHub front end
+location / {</p>
+<blockquote>
+<div><p>proxy_pass <a class="reference external" href="https://127.0.0.1:8000">https://127.0.0.1:8000</a>;
+proxy_set_header X-Real-IP $remote_addr;
+proxy_set_header Host $host;
+proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</p>
+</div></blockquote>
+</div></blockquote>
+<p>}</p>
+<blockquote>
+<div><p># Managing WebHook/Socket requests between hub user servers and external proxy</p>
+</div></blockquote>
+<dl>
+<dt>location ~* /(api/kernels/[^/]+/(channels|iopub|shell|stdin)|terminals/websocket)/? {</dt><dd><p>proxy_pass <a class="reference external" href="https://127.0.0.1:8000">https://127.0.0.1:8000</a>;</p>
+<p>proxy_set_header X-Real-IP $remote_addr;
+proxy_set_header Host $host;
+proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+# WebSocket support
+proxy_http_version 1.1;
+proxy_set_header Upgrade $http_upgrade;
+proxy_set_header Connection $connection_upgrade;</p>
+</dd>
+</dl>
+<p>}</p>
+<blockquote>
+<div><p># Managing requests to verify letsencrypt host</p>
+</div></blockquote>
+<dl class="simple">
+<dt>location ~ /.well-known {</dt><dd><p>allow all;</p>
+</dd>
+</dl>
+<p>}</p>
+</div></blockquote>
+<section id="id13">
+<h1>}<a class="headerlink" href="#id13" title="Permalink to this heading">¶</a></h1>
+<p><cite>nginx</cite> will now be the front facing element of JupyterHub on <cite>443</cite> which means it is also free to bind other servers, like <cite>NO_HUB.DOMAIN.TLD</cite> to the same port on the same machine and network interface. In fact, one can simply use the same server blocks as above for <cite>NO_HUB</cite> and simply add line for the root directory of the site as well as the applicable location call:</p>
+<p><a href="#id14"><span class="problematic" id="id15">``</span></a><a href="#id16"><span class="problematic" id="id17">`</span></a>bash
+server {</p>
+<blockquote>
+<div><p>listen 80;
+server_name NO_HUB.DOMAIN.TLD;</p>
+<p># Tell all requests to port 80 to be 302 redirected to HTTPS
+return 302 <a class="reference external" href="https://$host$request_uri">https://$host$request_uri</a>;</p>
+</div></blockquote>
+<p>}</p>
+<dl>
+<dt>server {</dt><dd><blockquote>
+<div><p>listen 443;
+ssl on;</p>
+<p># INSERT OTHER SSL PARAMETERS HERE AS ABOVE</p>
+<p># Set the appropriate root directory
+root /var/www/html</p>
+<p># Set URI handling
+location / {</p>
+<blockquote>
+<div><p>try_files $uri $uri/ =404;</p>
+</div></blockquote>
+<p>}</p>
+<p># Managing requests to verify letsencrypt host</p>
+</div></blockquote>
+<dl class="simple">
+<dt>location ~ /.well-known {</dt><dd><p>allow all;</p>
+</dd>
+</dl>
+<p>}</p>
+</dd>
+</dl>
+</section>
+<section id="id18">
+<h1>}<a class="headerlink" href="#id18" title="Permalink to this heading">¶</a></h1>
+<p>Now just restart <cite>nginx</cite>, restart the JupyterHub, and enjoy accessing <a class="reference external" href="https://HUB.DOMAIN.TLD">https://HUB.DOMAIN.TLD</a> while serving other content securely on <a class="reference external" href="https://NO_HUB.DOMAIN.TLD">https://NO_HUB.DOMAIN.TLD</a>.</p>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2016, Project Jupyter team.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
