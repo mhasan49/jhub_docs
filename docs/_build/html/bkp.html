@@ -26,7 +26,7 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="#" class="icon icon-home"> JupyterHub
+            <a href="index.html" class="icon icon-home"> JupyterHub
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -39,7 +39,11 @@
               <!-- Local TOC -->
               <div class="local-toc"><ul>
 <li><a class="reference internal" href="#">JupyterHub</a><ul>
-<li><a class="reference internal" href="#contents">Contents</a></li>
+<li><a class="reference internal" href="#contents">Contents</a><ul>
+</ul>
+</li>
+<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+<li><a class="reference internal" href="#questions-suggestions">Questions? Suggestions?</a></li>
 </ul>
 </li>
 </ul>
@@ -50,17 +54,17 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="#">JupyterHub</a>
+          <a href="index.html">JupyterHub</a>
       </nav>
 
       <div class="wy-nav-content">
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="#" class="icon icon-home"></a> &raquo;</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
       <li>JupyterHub</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/bkp.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -76,7 +80,7 @@ and proxies multiple instances of the single-user
 Due to its flexibility and customization options, JupyterHub can be used to
 serve notebooks to a class of students, a corporate data science group, or a
 scientific research group.</p>
-<a class="reference internal image-reference" href="_images/image1.jpg"><img alt="JupyterHub subsystems" class="align-right" src="_images/image1.jpg" style="width: 80%;" /></a>
+<a class="reference internal image-reference" href="_images/jhub-parts.png"><img alt="JupyterHub subsystems" class="align-right" src="_images/jhub-parts.png" style="width: 40%;" /></a>
 <p>Three subsystems make up JupyterHub:</p>
 <ul class="simple">
 <li><p>a multi-user <strong>Hub</strong> (tornado process)</p></li>
@@ -90,6 +94,9 @@ scientific research group.</p>
 <li><p>The Hub handles user login and spawns single-user servers on demand</p></li>
 <li><p>The Hub configures the proxy to forward URL prefixes to the single-user notebook servers</p></li>
 </ul>
+<p>For convenient administration of the Hub, its users, and <span class="xref std std-doc">services</span>
+(added in version 7.0), JupyterHub also provides a
+<a class="reference external" href="http://petstore.swagger.io/?url=https://raw.githubusercontent.com/jupyterhub/jupyterhub/master/docs/rest-api.yml#!/default">REST API</a>.</p>
 <section id="contents">
 <h2>Contents<a class="headerlink" href="#contents" title="Permalink to this heading">¶</a></h2>
 <p><strong>User Guide</strong></p>
@@ -102,6 +109,44 @@ scientific research group.</p>
 </ul>
 <div class="toctree-wrapper compound">
 </div>
+<p><strong>Configuration Guide</strong></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="authenticators.html"><span class="doc">}</span></a></p></li>
+<li><p><span class="xref std std-doc">spawners</span></p></li>
+<li><p><span class="xref std std-doc">services</span></p></li>
+<li><p><span class="xref std std-doc">config-examples</span></p></li>
+<li><p><span class="xref std std-doc">upgrading</span></p></li>
+<li><p><span class="xref std std-doc">troubleshooting</span></p></li>
+</ul>
+<div class="toctree-wrapper compound">
+</div>
+<p><strong>API Reference</strong></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="api/index.html"><span class="doc">The JupyterHub API</span></a></p></li>
+</ul>
+<div class="toctree-wrapper compound">
+</div>
+<p><strong>About JupyterHub</strong></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="changelog.html"><span class="doc">&lt;no title&gt;</span></a></p></li>
+<li><p><span class="xref std std-doc">contributor-list</span></p></li>
+</ul>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+<section id="indices-and-tables">
+<h2>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+</ul>
+</section>
+<section id="questions-suggestions">
+<h2>Questions? Suggestions?<a class="headerlink" href="#questions-suggestions" title="Permalink to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://groups.google.com/forum/#!forum/jupyter">Jupyter mailing list</a></p></li>
+<li><p><a class="reference external" href="https://jupyter.org">Jupyter website</a></p></li>
+</ul>
 </section>
 </section>
 
