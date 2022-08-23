@@ -9,12 +9,6 @@ serve notebooks to a class of students, a corporate data science group, or a
 scientific research group.
 
 
-.. image:: images/image1.jpg
-   :alt: JupyterHub subsystems
-   :width: 80%
-   :align: right
-
-
 Three subsystems make up JupyterHub:
 
 * a multi-user **Hub** (tornado process)
