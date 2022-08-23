@@ -1,7 +1,7 @@
 Ansible ansible-script
 ===========================
-**Prerequisites**
-
+Prerequisites
++++++++++++++++++++
 *Before installing JupyterHub*, you will need:
 
 - `Python <https://www.python.org/downloads/>`_ 3.3 or greater

@@ -37,7 +37,7 @@ Contents
    :hidden:
    :caption: User Guide
 
-   quickstart
-   ansible-script
+   pages/quickstart
+   pages/ansible-script
 
    

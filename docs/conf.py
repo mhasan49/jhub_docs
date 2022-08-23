@@ -14,7 +14,7 @@ import shlex
 
 # Minimal Sphinx version
 needs_sphinx = '1.4'
-
+language = 'en'
 # Sphinx extension modules
 extensions = [
     'sphinx.ext.autodoc',
@@ -157,11 +157,11 @@ if not on_rtd:
     import sphinx_rtd_theme
     html_theme = 'sphinx_rtd_theme'
     html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
-else:
+#else:
     # readthedocs.org uses their theme by default, so no need to specify it
     # build rest-api, since RTD doesn't run make
-    from subprocess import check_call as sh
-    sh(['make', 'rest-api'], cwd=docs)
+#    from subprocess import check_call as sh
+#    sh(['make', 'rest-api'], cwd=docs)
 
 # -- Spell checking -------------------------------------------------------
 
