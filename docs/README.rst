@@ -29,10 +29,8 @@ Contents
 **User Guide**
 
 * :doc:`quickstart`
-* :doc:`getting-started`
-* :doc:`howitworks`
-* :doc:`websecurity`
-* :doc:`rest`
+* :doc:`ansible-script`
+
 
 .. toctree::
    :maxdepth: 2
@@ -40,7 +38,6 @@ Contents
    :caption: User Guide
 
    quickstart
-   getting-started
-   howitworks
-   websecurity
-   rest
+   ansible-script
+
+   
