@@ -5,7 +5,7 @@ import os
 import shlex
 
 # For conversion from markdown to html
-#import recommonmark.parser
+
 
 # Set paths
 #sys.path.insert(0, os.path.abspath('.'))
@@ -44,14 +44,7 @@ exclude_patterns = []
 pygments_style = 'sphinx'
 todo_include_todos = False
 
-# -- Source -------------------------------------------------------------
 
-source_parsers = {
-    '.md': 'recommonmark.parser.CommonMarkParser',
-}
-
-source_suffix = ['.rst', '.md']
-#source_encoding = 'utf-8-sig'
 
 # -- Options for HTML output ----------------------------------------------
 
