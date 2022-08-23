@@ -11,7 +11,7 @@ import shlex
 #sys.path.insert(0, os.path.abspath('.'))
 
 # -- General configuration ------------------------------------------------
-########
+
 # Minimal Sphinx version
 needs_sphinx = '1.4'
 language = 'en'
