@@ -27,8 +27,7 @@ Quickstart - Installation
 - The ``nodejs-legacy`` package installs the ``node`` executable and is currently required for npm to work on Debian/Ubuntu.
 
 - Apart from the above mentioned requirements, we also have to install the following packages:
-  
-    ``make`` , ``curl``, ``git``
+   ``make`` , ``curl``, ``git``
 
 
 Auto-Installation
@@ -41,33 +40,33 @@ One command to install all the required packages and jupyterhub, we will issue:
     make all
 
 This command will first update the system with all the necessary packages, 
-and then install jupyterhub.
-
-.. error:: 
-   In case you encounter an error, please check follow the manual installation instructions.: 
+and then install jupyterhub.*In case you encounter an error, please check follow
+the manual installation instructions*
 
 Step-by-Step Installation
 #############
 
-One command to install all the required packages and jupyterhub, we will issue:
+1. In this method we will first update the linux system, 
 
 .. code-block:: bash
 
     make software
 
-One command to install all the required packages and jupyterhub, we will issue:
+which will install `epel-release`, `ansible` and `python` will be installed.
+
+2.Next we will install the proxy server, by:
 
 .. code-block:: bash
 
-    make software
+    make install_proxy
 
-One command to install all the required packages and jupyterhub, we will issue:
+The command will first install `configurable-http-proxy`, and then it will run a test to confirm its status.
 
 .. code-block:: bash
 
-    make software    
+    make install_requirements    
 
-
+THe above command will first create a virtual environment and install all ``dev-requirements.txt`` amd  . 
 Manual Installation
 #############
 
