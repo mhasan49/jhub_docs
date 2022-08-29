@@ -42,6 +42,7 @@ One command to install all the required packages and jupyterhub, we will issue:
 
 This command will first update the system with all the necessary packages, 
 and then install jupyterhub.
+
 .. error:: 
    In case you encounter an error, please check follow the manual installation instructions.: 
 
