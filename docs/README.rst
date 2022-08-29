@@ -113,7 +113,7 @@ Contents
 **User Guide**
 
 * :doc:`quickstart`
-* :doc:`proxy-server`
+* :doc:`proxyserver`
 * :doc:`authenticator`
 
 .. toctree::
@@ -122,7 +122,7 @@ Contents
    :caption: User Guide
 
    pages/quickstart
-   pages/proxy-server
+   pages/proxyserver
    pages/authenticator
    
 
