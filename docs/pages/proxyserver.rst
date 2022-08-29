@@ -14,11 +14,13 @@ If you're installing configurable-http-proxy in Linux, you can follow the instru
 nodesource to install arbitrary version of Node.js.
 
 To install the configurable-http-proxy package globally using npm:
+
 .. code:: bash
     
      npm install configurable-http-proxy -g
 
 To install from the source code found in this GitHub repo:
+
 .. code:: bash
 
      git clone https://github.com/jupyterhub/configurable-http-proxy
@@ -34,6 +36,7 @@ Auto Installation
 ####################
 
 In order to use ansible script to install the proxy-server, we will use:
+
 .. code:: bash
     
     make install_proxyserver
