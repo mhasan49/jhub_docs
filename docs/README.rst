@@ -113,8 +113,8 @@ Contents
 **User Guide**
 
 * :doc:`quickstart`
-* :doc:`ansible-script`
-
+* :doc:`proxy-server`
+* :doc:`authenticator`
 
 .. toctree::
    :maxdepth: 2
@@ -122,6 +122,8 @@ Contents
    :caption: User Guide
 
    pages/quickstart
-   pages/ansible-script
+   pages/proxy-server
+   pages/authenticator
+   
 
    
