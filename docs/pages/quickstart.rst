@@ -24,7 +24,7 @@ Quickstart - Installation
   using your operating system's package manager. For example, install on Linux
   (Debian/Ubuntu) using:
 
-The ``nodejs-legacy`` package installs the ``node`` executable and is currently required for npm to work on Debian/Ubuntu.
+- The ``nodejs-legacy`` package installs the ``node`` executable and is currently required for npm to work on Debian/Ubuntu.
 
 - Apart from the above mentioned requirements, we also have to install the following packages:
   
@@ -39,6 +39,11 @@ One command to install all the required packages and jupyterhub, we will issue:
 .. code-block:: bash
 
     make all
+
+This command will first update the system with all the necessary packages, 
+and then install jupyterhub.
+.. error:: 
+   In case you encounter an error, please check follow the manual installation instructions.: 
 
 Step-by-Step Installation
 #############
