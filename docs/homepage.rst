@@ -1,3 +1,7 @@
+Quick Settings
+==========
+
+
 ### **Configuration Basics** 
 1. The default configuration file, `jupyterhub_config.py` contains comments and guidance for all configuration variables and their default values, will remain in it's custom location `/config/default/jupyterhub_config.py` along with other custom script we write.
    
