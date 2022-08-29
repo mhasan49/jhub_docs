@@ -2,7 +2,15 @@ Quickstart - Installation
 ===========================
 **Prerequisites**
 
-*Before installing JupyterHub*, you will need:
+*Before installing JupyterHub and the Makefile file to work *, you will need:
+
+- `Alma Linux <https://almalinux.org/>`_ 8.6 or greater
+   
+  A fresh installation of this distribution.Inside the the folder `auto_deploy_RHEL`, the script has been customized to work with the Alma Linux 8.6. 
+  and few other distribution of the same family, like `CentOS 7.6 <https://www.centos.org//>`_, 
+  `RHEL <https://www.redhat.com/en/technologies/linux-platforms/enterprise-linux/>`_, and others. 
+   
+- `Ansible <https://www.ansible.com/>`_ xx.x or greater
 
 - `Python <https://www.python.org/downloads/>`_ 3.3 or greater
 
@@ -22,26 +30,34 @@ Quickstart - Installation
 
 The ``nodejs-legacy`` package installs the ``node`` executable and is currently required for npm to work on Debian/Ubuntu.
 
-- TLS certificate and key for HTTPS communication
+- Apart from the above mentioned requirements, we also have to install the following packages:
+  
+  .. code-block:: bash
+   
+   sudo apt-get install make curl git
 
-- Domain name
-
-**Before running the single-user notebook servers** (which may be on the same system as the Hub or not):
-
-- [Jupyter Notebook](https://jupyter.readthedocs.io/en/latest/install.html)
-  version 4 or greater
 
 Installation
 #############
 
-JupyterHub can be installed with `pip` or `conda` and the proxy with `npm`:
+Before installing JupyterHub we have to install a proxy server, 
+which can be installed with `pip` or `conda` or `npm`:
+
+
+**make :**
+ .. code-block:: bash
+
+   make install_proxy
+   
+This will install the proxy server ``configurable-http-proxy``. 
+or we can manually install it using:
 
 **pip, npm:**
  .. code-block:: bash
 
-   python3 -m pip install jupyterhub
    npm install -g configurable-http-proxy
 
+make sure npm is configured properly, if the system is behind a proxy server.
 
 **conda** (one command installs jupyterhub and proxy):
 
