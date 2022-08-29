@@ -40,8 +40,7 @@ One command to install all the required packages and jupyterhub, we will issue:
     make all
 
 This command will first update the system with all the necessary packages, 
-and then install jupyterhub.*In case you encounter an error, please check follow
-the manual installation instructions*
+and then install jupyterhub. 
 
 Step-by-Step Installation
 #############
@@ -67,59 +66,32 @@ test to confirm its status.
 
     make install_requirements    
 
-4. THe above command will first create a virtual environment and install all it's dependencies 
-mentioned in the ``dev-requirements.txt`` and ``requirements.txt``  . 
+The above command will first create a virtual environment and install all it's dependencies 
+mentioned in the ``dev-requirements.txt`` and ``requirements.txt`` in the virtual environment 
+The location of the virtual environment will be path 
+``/path/tojupyterhub/jupyterhub/venv``:
 
-Manual Installation
-#############
+4. Next we will install the LDAP Authenticatior. After the installation it will also run a pytest
+   to confirm its status.
 
-Before installing JupyterHub we have to install a proxy server, 
-which can be installed with ``pip`` or ``conda`` or ``npm``:
+.. code-block:: bash
+    
+    make install_authenticator 
 
-
-**make :**
- .. code-block:: bash
-
-   make install_proxy
+5. Next we will install Spawner. 
    
-This will install the proxy server ``configurable-http-proxy``. 
-or we can manually install it using:
-
-**pip, npm:**
- .. code-block:: bash
-
-   npm install -g configurable-http-proxy
-
-make sure npm is configured properly, if the system is behind a proxy server.
-
-**conda** (one command installs jupyterhub and proxy):
-
- .. code-block:: bash
-
-   conda install -c conda-forge jupyterhub
+.. code-block:: bash
+    
+    make install_spawner
 
 
-To test your installation:
-
- .. code-block:: bash
-
-   jupyterhub -h
-   configurable-http-proxy -h
 
 
-If you plan to run notebook servers locally, you will need also to install
-Jupyter notebook:
-
-**pip:**
- .. code-block:: bash
-   
-   python3 -m pip install notebook
 
 
-**conda:**
- .. code-block:: bash
 
-   conda install notebook
+
+
 
 
 Start the Hub server
