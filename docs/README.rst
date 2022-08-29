@@ -54,29 +54,41 @@ Before installing JupyterHub, you will need a Linux/Unix based system.`Python 3.
 *Installation*  
 
 1. Clone the repo
-   ```sh
+   
+.. code-block:: bash
+
     git clone https://github.com/mhasan49/jhub_temple.git
-   ```
-2. Configure the default ansible files by
-   ```sh
+   
+1. Configure the default ansible files by
+
+.. code-block:: bash
+  
     make config
-   ```
+   
 3. Install jupyterhub packages
-   ```sh
+
+.. code-block:: bash
+
     make install_jupyterhub
-   ```
+   
 4. Installing docker and associated features
-   ```sh
+
+.. code-block:: bash
+   
     make docker
-   ```
+   
 5. Once successfully installed, we can start the hub by first activating the venv
-   ```sh
+
+.. code-block:: bash
+
     source /path/to/jupyterhub/venv/bin/activate
-   ```
+
 6. Finally, to start the hub
-   ```sh
+
+.. code-block:: bash
+    
     jupyterhub -f /path/to/jupyterhub_config.py
-   ```  
+     
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
@@ -84,26 +96,6 @@ Before installing JupyterHub, you will need a Linux/Unix based system.`Python 3.
 
 
 
-With JupyterHub you can create a **multi-user Hub** which spawns, manages,
-and proxies multiple instances of the single-user
-`Jupyter notebook <https://jupyter-notebook.readthedocs.io/en/latest/>`_ server.
-Due to its flexibility and customization options, JupyterHub can be used to
-serve notebooks to a class of students, a corporate data science group, or a
-scientific research group.
-
-
-Three subsystems make up JupyterHub:
-
-* a multi-user **Hub** (tornado process)
-* a **configurable http proxy** (node-http-proxy)
-* multiple **single-user Jupyter notebook servers** (Python/IPython/tornado)
-
-JupyterHub's basic flow of operations includes:
-
-- The Hub spawns a proxy
-- The proxy forwards all requests to the Hub by default
-- The Hub handles user login and spawns single-user servers on demand
-- The Hub configures the proxy to forward URL prefixes to the single-user notebook servers
 
 
 Contents
