@@ -24,18 +24,18 @@ Quickstart - Installation
   using your operating system's package manager. For example, install on Linux
   (Debian/Ubuntu) using:
 
- .. code-block:: bash
-   
-   sudo apt-get install npm nodejs-legacy
-
 The ``nodejs-legacy`` package installs the ``node`` executable and is currently required for npm to work on Debian/Ubuntu.
 
 - Apart from the above mentioned requirements, we also have to install the following packages:
-  
-  .. code-block:: bash
-   
-   sudo apt-get install make curl git
+    ``make`` ,``curl``, ``git``
 
+
+Auto-Installation
+#############
+
+One command to install all the required packages and jupyterhub, we will issue:
+
+    ``make install``
 
 Installation
 #############
