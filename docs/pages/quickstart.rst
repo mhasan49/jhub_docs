@@ -52,26 +52,29 @@ Step-by-Step Installation
 
     make software
 
-which will install `epel-release`, `ansible` and `python` will be installed.
+which will install ``epel-release``, ``ansible`` and ``python`` will be installed.
 
-2.Next we will install the proxy server, by:
+2. Next we will install the proxy server, by:
 
 .. code-block:: bash
 
     make install_proxy
 
-The command will first install `configurable-http-proxy`, and then it will run a test to confirm its status.
+3. The command will first install ``configurable-http-proxy``, and then it will run a 
+test to confirm its status.
 
 .. code-block:: bash
 
     make install_requirements    
 
-THe above command will first create a virtual environment and install all ``dev-requirements.txt`` amd  . 
+4. THe above command will first create a virtual environment and install all it's dependencies 
+mentioned in the ``dev-requirements.txt`` and ``requirements.txt``  . 
+
 Manual Installation
 #############
 
 Before installing JupyterHub we have to install a proxy server, 
-which can be installed with `pip` or `conda` or `npm`:
+which can be installed with ``pip`` or ``conda`` or ``npm``:
 
 
 **make :**
