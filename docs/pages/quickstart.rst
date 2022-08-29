@@ -97,33 +97,41 @@ The location of the virtual environment will be path
 Start the Hub server
 ####################
 
-To start the Hub server, run the command:
+To start the Hub server, first activate the `virtual environment` by the command:
 
  .. code-block:: bash
    
-   jupyterhub
+   source /path/to/jupyterhub/venv/bin/activate
 
+If you are using fish shell, use ``activate.fish`` instead. Then start the 
+Hub server by the command:
 
-Visit https://localhost:8000 in your browser, and sign in with your unix credentials.
+  .. code-block:: bash
+    
+    jupyterhub -f /path/to/jupyterhub/testing/jupyterhub_config.py
+  
+or you may also use ``jupyterhub`` just as a command to test the hub. For more 
+information use ``jupyterhub -help``. 
 
-To allow multiple users to sign into the Hub server, you must start `jupyterhub` as a *privileged user*, such as root:
+Visit https://localhost:8000 in your browser, and sign in with your unique credentials.
+
+To allow multiple users to sign into the Hub server, 
+you must start `jupyterhub` as a *privileged user*, such as root:
 
  .. code-block:: bash
 
    sudo jupyterhub
 
-The `wiki <https://github.com/jupyterhub/jupyterhubwiki>`_ Using-sudo-to-run-JupyterHub-without-root-privileges describes how to run the server as a *less privileged user*, which requires additional configuration of the system.
+The `wiki <https://github.com/jupyterhub/jupyterhubwiki>`_ 
+Using-sudo-to-run-JupyterHub-without-root-privileges describes how to 
+run the server as a *less privileged user*, which requires additional configuration of the system.
 
 
-Basic Configuration
+Optional Configuration
 #####################
 
-The [getting started document](docs/source/getting-started.md) contains
-detailed information abouts configuring a JupyterHub deployment.
-
-The JupyterHub **tutorial** provides a video and documentation that explains and illustrates the fundamental steps for installation and configuration.
-`repo <https://github.com/jupyterhub/jupyterhub-tutorial>`_
-`Tutorial documentation <http://jupyterhub-tutorial.readthedocs.io/en/latest/>`_
+The `Jupyterhub Documentation <https://jupyterhub.readthedocs.io/en/stable/>`_ contains
+detailed information about configuring a JupyterHub deployment.
 
 Generate a default configuration file
 
@@ -154,7 +162,12 @@ Alternate Installation using Docker
 A ready to go `docker image for JupyterHub <https://hub.docker.com/r/jupyterhub/jupyterhub/>`_
 gives a straightforward deployment of JupyterHub.
 
-*Note: This `jupyterhub/jupyterhub` docker image is only an image for running the Hub service itself. It does not provide the other Jupyter components, such as Notebook installation, which are needed by the single-user servers.To run the single-user servers, which may be on the same system as the Hub or not, Jupyter Notebook version 4 or greater must be installed.*
+.. note:: 
+This `jupyterhub/jupyterhub` docker image is only an image for running the 
+Hub service itself. It does not provide the other Jupyter components, such as Notebook
+installation, which are needed by the single-user servers.To run the single-user 
+servers, which may be on the same system as the Hub or not, Jupyter Notebook version
+4 or greater must be installed.:
 
 Starting JupyterHub with docker
 ################################
