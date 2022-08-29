@@ -40,3 +40,24 @@ In order to use ansible script to install the proxy-server, we will use:
 .. code:: bash
     
     make install_proxyserver
+
+Usage
+####################
+
+* Starting the proxy
+
+.. code:: bash 
+        
+        proxy-server start
+
+* Setting a default target
+
+.. code:: bash 
+        
+     configurable-http-proxy --default-target=http://localhost:8888
+
+* Authenticating via passing a token
+  
+  .. code:: bash
+
+      curl -H "Authorization: token $CONFIGPROXY_AUTH_TOKEN" http://localhost:8001/api/routes
