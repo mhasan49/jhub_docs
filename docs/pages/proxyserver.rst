@@ -29,8 +29,7 @@ To install from the source code found in this GitHub repo:
      
      npm install  # Use 'npm install -g' for global install
 
-For more information on configurable-http-proxy, see the official documentation:
-`configurable-http-proxy <https://github.com/jupyterhub/configurable-http-proxy>`_
+
 
 Auto Installation
 ####################
@@ -60,4 +59,8 @@ Usage
   
   .. code:: bash
 
-      curl -H "Authorization: token $CONFIGPROXY_AUTH_TOKEN" http://localhost:8001/api/routes
+     curl -H "Authorization: token $CONFIGPROXY_AUTH_TOKEN" http://localhost:8001/api/routes
+
+
+For more information on configurable-http-proxy, see the official documentation:
+`configurable-http-proxy <https://github.com/jupyterhub/configurable-http-proxy>`_
