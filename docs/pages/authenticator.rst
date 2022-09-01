@@ -3,6 +3,38 @@ Authenticator
 
 The Authenticator is the mechanism for authorizing users to use the Hub and single user notebook servers.
 
+LDAPapauthenticator
+######################
+
+Simple LDAP Authenticator Plugin for JupyterHub
+
+**Installation**
+
+- You can install it from pip with:
+  
+  .. code:: bash
+
+     pip install jupyterhub-ldapauthenticator
+     
+...or using conda with:
+
+.. code:: bash
+
+   conda install -c conda-forge jupyterhub-ldapauthenticator
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 Native Authenticator
 ######################
 
@@ -22,23 +54,3 @@ Then run tests with pytest:
 .. code:: bash
 
    pytest
-
-
-ldapauthenticator
-######################
-
-Simple LDAP Authenticator Plugin for JupyterHub
-
-**Installation**
-
-- You can install it from pip with:
-  
-  .. code:: bash
-
-     pip install jupyterhub-ldapauthenticator
-     
-...or using conda with:
-
-.. code:: bash
-
-   conda install -c conda-forge jupyterhub-ldapauthenticator
