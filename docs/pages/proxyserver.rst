@@ -41,10 +41,39 @@ In order to install via ansible script , we will use:
     make install_proxyserver
 
 
-Extra Configuration
+Jupyterhub Configuration
 ####################
 
-* Starting the proxy
+.. code:: yaml
+
+    c.JupyterHub.proxy_api_ip = '
+     c.JupyterHub.proxy_api_port = '
+     c.JupyterHub.proxy_api_prefix = '
+     c.JupyterHub.proxy_auth_token = '
+     c.JupyterHub.proxy_auth_prefix = '
+     c.JupyterHub.proxy_public_api_ip = '
+     c.JupyterHub.proxy_public_api_port = '
+     c.JupyterHub.proxy_public_api_prefix = '
+     c.JupyterHub.proxy_public_auth_token = '
+     c.JupyterHub.proxy_public_auth_prefix = '
+     c.JupyterHub.proxy_public_url = '
+     c.JupyterHub.proxy_url = '
+     c.JupyterHub.proxy_api_token = '
+     c.JupyterHub.proxy_api_url = '
+     c.JupyterHub.proxy_api_allow_credentials = '
+     c.JupyterHub.proxy_api_allow_headers = '
+     c.JupyterHub.proxy_api_allow_methods = '
+     c.JupyterHub.proxy_api_allow_origin = '
+     c.JupyterHub.proxy_api_max_body_size = '
+     c.JupyterHub.proxy_api_max_concurrent_requests = '
+     c.JupyterHub.proxy_api_max_request_size = '
+     c.JupyterHub.proxy_api_max_requests = '
+     c.JupyterHub.proxy_api_timeout = '
+     c.JupyterHub.proxy_api_trust_user_provided_headers = '
+  
+
+Extra Configuration
+####################
 
 .. code:: bash 
         
