@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Authenticators &mdash; JupyterHub  documentation</title>
+  <title>Authenticator &mdash; JupyterHub  documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -18,7 +18,8 @@
         <script src="../_static/doctools.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" /> 
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Proxy-Server" href="proxyserver.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -37,9 +38,14 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../pages/quickstart.html">Quickstart - Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../pages/ansible-script.html">Ansible ansible-script</a></li>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart - Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="proxyserver.html">Proxy-Server</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Authenticator</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#native-authenticator">Native Authenticator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ldapauthenticator">ldapauthenticator</a></li>
+</ul>
+</li>
 </ul>
 
         </div>
@@ -56,9 +62,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../README.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Authenticators</li>
+      <li>Authenticator</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/api/auth.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/pages/authenticator.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -66,17 +72,39 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="authenticators">
-<h1>Authenticators<a class="headerlink" href="#authenticators" title="Permalink to this heading">¶</a></h1>
-<section id="module-jupyterhub-auth">
-<h2>Module: <code class="xref py py-mod docutils literal notranslate"><span class="pre">jupyterhub.auth</span></code><a class="headerlink" href="#module-jupyterhub-auth" title="Permalink to this heading">¶</a></h2>
+  <section id="authenticator">
+<h1>Authenticator<a class="headerlink" href="#authenticator" title="Permalink to this heading">¶</a></h1>
+<p>The Authenticator is the mechanism for authorizing users to use the Hub and single user notebook servers.</p>
+<section id="native-authenticator">
+<h2>Native Authenticator<a class="headerlink" href="#native-authenticator" title="Permalink to this heading">¶</a></h2>
+<p>This is a relatively simple authenticator for small or medium-sized JupyterHub applications.
+Signup and authentication are
+implemented as native to JupyterHub without relying on external services.</p>
+<p>Documentation
+The latest documentation is always on readTheDocs, available here.</p>
+<p>Running tests
+To run the tests locally, you can install the development dependencies like so:</p>
+<p>pip install -r dev-requirements.txt
+Then run tests with pytest:</p>
+<p>pytest</p>
+</section>
+<section id="ldapauthenticator">
+<h2>ldapauthenticator<a class="headerlink" href="#ldapauthenticator" title="Permalink to this heading">¶</a></h2>
+<p>Simple LDAP Authenticator Plugin for JupyterHub</p>
+<p>Installation
+You can install it from pip with:</p>
+<p>pip install jupyterhub-ldapauthenticator
+…or using conda with:</p>
+<p>conda install -c conda-forge jupyterhub-ldapauthenticator</p>
 </section>
 </section>
 
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="proxyserver.html" class="btn btn-neutral float-left" title="Proxy-Server" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
 
   <hr/>
 

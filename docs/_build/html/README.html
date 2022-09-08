@@ -40,7 +40,8 @@
               <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="pages/quickstart.html">Quickstart - Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="pages/ansible-script.html">Ansible ansible-script</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pages/proxyserver.html">Proxy-Server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pages/authenticator.html">Authenticator</a></li>
 </ul>
 
         </div>
@@ -69,31 +70,107 @@
              
   <section id="jupyterhub">
 <h1>JupyterHub<a class="headerlink" href="#jupyterhub" title="Permalink to this heading">¶</a></h1>
-<p>With JupyterHub you can create a <strong>multi-user Hub</strong> which spawns, manages,
-and proxies multiple instances of the single-user
-<a class="reference external" href="https://jupyter-notebook.readthedocs.io/en/latest/">Jupyter notebook</a> server.
-Due to its flexibility and customization options, JupyterHub can be used to
-serve notebooks to a class of students, a corporate data science group, or a
-scientific research group.</p>
-<p>Three subsystems make up JupyterHub:</p>
-<ul class="simple">
-<li><p>a multi-user <strong>Hub</strong> (tornado process)</p></li>
-<li><p>a <strong>configurable http proxy</strong> (node-http-proxy)</p></li>
-<li><p>multiple <strong>single-user Jupyter notebook servers</strong> (Python/IPython/tornado)</p></li>
-</ul>
-<p>JupyterHub’s basic flow of operations includes:</p>
-<ul class="simple">
-<li><p>The Hub spawns a proxy</p></li>
-<li><p>The proxy forwards all requests to the Hub by default</p></li>
-<li><p>The Hub handles user login and spawns single-user servers on demand</p></li>
-<li><p>The Hub configures the proxy to forward URL prefixes to the single-user notebook servers</p></li>
-</ul>
+<p><strong>Configuration Basics</strong></p>
+<p>1. The default configuration file, <code class="docutils literal notranslate"><span class="pre">jupyterhub_config.py</span></code> contains comments and
+guidance for all configuration variables and their default values, will remain in it’s custom
+location <code class="docutils literal notranslate"><span class="pre">/config/default/jupyterhub_config.py</span></code> along with other custom script we write.</p>
+<p>2. Proxy Settings - The Hub service listens only on localhost (port 8081) by default, but can be
+changed to any port of our requirement. The Hub needs to be accessible from both the proxy and all
+Spawners.If either the Proxy or (more likely) the Spawners will be remote or isolated in containers,
+the Hub must listen on an IP that is accessible.We, will be using <code class="docutils literal notranslate"><span class="pre">configurable-http-proxy</span></code>.
+The configurable proxy runs two HTTP(S) servers:The public-facing interface to your application
+(controlled by –ip, –port) listens on all interfaces by default.The inward-facing REST API
+(–api-ip, –api-port) listens on localhost by default.The REST API uses token authorization,
+where the token is set in the CONFIGPROXY_AUTH_TOKEN environment variable.</p>
+<ol class="arabic simple" start="3">
+<li><p>Cookie secret -</p></li>
+<li><p>SSL encryption - It is also possible to use <code class="docutils literal notranslate"><span class="pre">letsencrypt</span></code> to obtain a free,</p></li>
+<li><p>trusted SSL certificate.In that case we need a proper domain name.</p></li>
+<li><p>Network Settings - Configure the Hub if the Proxy or Spawners are remote or isolated.</p></li>
+</ol>
+<p><strong>Authenticator</strong></p>
+<p>1. For testing purpose - JupyterHub ships with the default PAM-based Authenticator, for logging
+in with local user accounts via a username and password. <cite>Dummy Authenticator</cite> used for testing
+purpose, but will be later removed by a custom Authenticator.</p>
+<ol class="arabic simple" start="4">
+<li><p>Users - A list of valid users will be constructed, based on temple’s requirements.</p></li>
+<li><p>OAuth - <code class="docutils literal notranslate"><span class="pre">OAuth</span></code> is a token based login mechanism that doesn’t rely on a username and password mapping.</p></li>
+</ol>
+<blockquote>
+<div><p>In order to use this login mechanism with JupyerHub the login handlers need to be overridden. OAuthenticator</p>
+</div></blockquote>
+<p>overrides these handlers for the common OAuth2 identity providers allowing them to be plugged in and used with
+JupyterHub.</p>
+<ol class="arabic simple" start="2">
+<li><p><cite>Github</cite> or <code class="docutils literal notranslate"><span class="pre">Google</span></code> account will be configured with OAuth</p></li>
+</ol>
+<p><strong>Spawner</strong></p>
+<ol class="arabic simple">
+<li><p>A Spawner starts each single-user notebook server. The Spawner represents an abstract interface to a process, and a custom</p></li>
+<li><p>Spawnerwill be implemented.</p></li>
+<li><p>For testing - The <code class="docutils literal notranslate"><span class="pre">dockerspawner</span></code> (also known as JupyterHub Docker Spawner), enables JupyterHub to spawn single user notebook</p></li>
+<li><p>servers in Docker containers will be used.It takes an authenticated user and spawns a notebook server in a Docker container for the user.</p></li>
+<li><p>Spawner options form -</p></li>
+<li><p>Spawners, resource limits, and guarantee -</p></li>
+</ol>
+<blockquote>
+<div><p><strong>Database</strong>
+1. JupyterHub brings the power of notebooks to groups of users. It gives users access to computational environments and resources without burdening the users with installation and maintenance tasks. Users - including students,</p>
+</div></blockquote>
+<p>Also, it will comes equipped with <code class="docutils literal notranslate"><span class="pre">Monitoring</span></code>,``Telemetry``,``REST API``</p>
+<p><strong>External services</strong></p>
+<ol class="arabic simple">
+<li><p>Service is defined as a process that interacts with the Hub’s REST API.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">jupyterhub-idle-culler</span></code> provides a JupyterHub service to identify and shut down idle or long-running Jupyter Notebook servers.</p></li>
+<li><p>systemd to manage a JupyterHub Service</p></li>
+</ol>
+<p><em>Prerequisites</em></p>
+<p>Before installing JupyterHub, you will need a Linux/Unix based system.`Python 3.6` or greater. An understanding of using <code class="docutils literal notranslate"><span class="pre">pip</span></code> or <code class="docutils literal notranslate"><span class="pre">conda</span></code>
+for installing Python packages is helpful.</p>
+<p><em>Installation</em></p>
+<ol class="arabic simple">
+<li><p>Clone the repo</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/mhasan49/jhub_temple.git
+</pre></div>
+</div>
+<ol class="arabic simple">
+<li><p>Configure the default ansible files by</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make config
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Install jupyterhub packages</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make install_jupyterhub
+</pre></div>
+</div>
+<ol class="arabic simple" start="4">
+<li><p>Installing docker and associated features</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make docker
+</pre></div>
+</div>
+<ol class="arabic simple" start="5">
+<li><p>Once successfully installed, we can start the hub by first activating the venv</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span> /path/to/jupyterhub/venv/bin/activate
+</pre></div>
+</div>
+<ol class="arabic simple" start="6">
+<li><p>Finally, to start the hub</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>jupyterhub -f /path/to/jupyterhub_config.py
+</pre></div>
+</div>
 <section id="contents">
 <h2>Contents<a class="headerlink" href="#contents" title="Permalink to this heading">¶</a></h2>
 <p><strong>User Guide</strong></p>
 <ul class="simple">
 <li><p><span class="xref std std-doc">quickstart</span></p></li>
-<li><p><span class="xref std std-doc">ansible-script</span></p></li>
+<li><p><span class="xref std std-doc">proxyserver</span></p></li>
+<li><p><span class="xref std std-doc">authenticator</span></p></li>
 </ul>
 <div class="toctree-wrapper compound">
 </div>

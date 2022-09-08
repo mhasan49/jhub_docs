@@ -19,7 +19,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Ansible ansible-script" href="ansible-script.html" />
+    <link rel="next" title="Proxy-Server" href="proxyserver.html" />
     <link rel="prev" title="JupyterHub" href="../README.html" /> 
 </head>
 
@@ -41,13 +41,14 @@
               <p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Quickstart - Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#auto-installation">Auto-Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#step-by-step-installation">Step-by-Step Installation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#start-the-hub-server">Start the Hub server</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#basic-configuration">Basic Configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#starting-jupyterhub-with-docker">Starting JupyterHub with docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#optional-configuration">Optional Configuration</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="ansible-script.html">Ansible ansible-script</a></li>
+<li class="toctree-l1"><a class="reference internal" href="proxyserver.html">Proxy-Server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="authenticator.html">Authenticator</a></li>
 </ul>
 
         </div>
@@ -77,8 +78,14 @@
   <section id="quickstart-installation">
 <h1>Quickstart - Installation<a class="headerlink" href="#quickstart-installation" title="Permalink to this heading">¶</a></h1>
 <p><strong>Prerequisites</strong></p>
-<p><em>Before installing JupyterHub</em>, you will need:</p>
+<p><a href="#id1"><span class="problematic" id="id2">*</span></a>Before installing JupyterHub and the Makefile file to work <a href="#id3"><span class="problematic" id="id4">*</span></a>, you will need:</p>
 <ul>
+<li><p><a class="reference external" href="https://almalinux.org/">Alma Linux</a> 8.6 or greater</p>
+<p>A fresh installation of this distribution.Inside the the folder <cite>auto_deploy_RHEL</cite>, the script has been customized to work with the Alma Linux 8.6.
+and few other distribution of the same family, like <a class="reference external" href="https://www.centos.org//">CentOS 7.6</a>,
+<a class="reference external" href="https://www.redhat.com/en/technologies/linux-platforms/enterprise-linux/">RHEL</a>, and others.</p>
+</li>
+<li><p><a class="reference external" href="https://www.ansible.com/">Ansible</a> xx.x or greater</p></li>
 <li><p><a class="reference external" href="https://www.python.org/downloads/">Python</a> 3.3 or greater</p>
 <p>An understanding of using <a class="reference external" href="https://pip.pypa.io/en/stable/">pip</a> or
 <a class="reference external" href="http://conda.pydata.org/docs/get-started.html">conda</a> for
@@ -89,82 +96,93 @@ installing Python packages is helpful.</p>
 using your operating system’s package manager. For example, install on Linux
 (Debian/Ubuntu) using:</p>
 </li>
-</ul>
-<blockquote>
-<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo apt-get install npm nodejs-legacy
-</pre></div>
-</div>
-</div></blockquote>
-<p>The <code class="docutils literal notranslate"><span class="pre">nodejs-legacy</span></code> package installs the <code class="docutils literal notranslate"><span class="pre">node</span></code> executable and is currently required for npm to work on Debian/Ubuntu.</p>
-<ul class="simple">
-<li><p>TLS certificate and key for HTTPS communication</p></li>
-<li><p>Domain name</p></li>
-</ul>
-<p><strong>Before running the single-user notebook servers</strong> (which may be on the same system as the Hub or not):</p>
-<ul class="simple">
-<li><p>[Jupyter Notebook](<a class="reference external" href="https://jupyter.readthedocs.io/en/latest/install.html">https://jupyter.readthedocs.io/en/latest/install.html</a>)
-version 4 or greater</p></li>
-</ul>
-<section id="installation">
-<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this heading">¶</a></h2>
-<p>JupyterHub can be installed with <cite>pip</cite> or <cite>conda</cite> and the proxy with <cite>npm</cite>:</p>
-<dl>
-<dt><strong>pip, npm:</strong></dt><dd><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3 -m pip install jupyterhub
-npm install -g configurable-http-proxy
-</pre></div>
-</div>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">nodejs-legacy</span></code> package installs the <code class="docutils literal notranslate"><span class="pre">node</span></code> executable and is currently required for npm to work on Debian/Ubuntu.</p></li>
+<li><dl class="simple">
+<dt>Apart from the above mentioned requirements, we also have to install the following packages:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">make</span></code> , <code class="docutils literal notranslate"><span class="pre">curl</span></code>, <code class="docutils literal notranslate"><span class="pre">git</span></code></p>
 </dd>
 </dl>
-<p><strong>conda</strong> (one command installs jupyterhub and proxy):</p>
-<blockquote>
-<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda install -c conda-forge jupyterhub
+</li>
+</ul>
+<section id="auto-installation">
+<h2>Auto-Installation<a class="headerlink" href="#auto-installation" title="Permalink to this heading">¶</a></h2>
+<p>One command to install all the required packages and jupyterhub, we will issue:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make all
 </pre></div>
 </div>
-</div></blockquote>
-<p>To test your installation:</p>
-<blockquote>
-<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>jupyterhub -h
-configurable-http-proxy -h
+<p>This command will first update the system with all the necessary packages,
+and then install jupyterhub.</p>
+</section>
+<section id="step-by-step-installation">
+<h2>Step-by-Step Installation<a class="headerlink" href="#step-by-step-installation" title="Permalink to this heading">¶</a></h2>
+<ol class="arabic simple">
+<li><p>In this method we will first update the linux system,</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make software
 </pre></div>
 </div>
-</div></blockquote>
-<p>If you plan to run notebook servers locally, you will need also to install
-Jupyter notebook:</p>
-<dl>
-<dt><strong>pip:</strong></dt><dd><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3 -m pip install notebook
+<p>which will install <code class="docutils literal notranslate"><span class="pre">epel-release</span></code>, <code class="docutils literal notranslate"><span class="pre">ansible</span></code> and <code class="docutils literal notranslate"><span class="pre">python</span></code> will be installed.</p>
+<ol class="arabic simple" start="2">
+<li><p>Next we will install the proxy server, by:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make install_proxy
 </pre></div>
 </div>
-</dd>
-<dt><strong>conda:</strong></dt><dd><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda install notebook
+<p>3. The command will first install <code class="docutils literal notranslate"><span class="pre">configurable-http-proxy</span></code>, and then it will run a
+test to confirm its status.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make install_requirements
 </pre></div>
 </div>
-</dd>
-</dl>
+<p>The above command will first create a virtual environment and install all it’s dependencies
+mentioned in the <code class="docutils literal notranslate"><span class="pre">dev-requirements.txt</span></code> and <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> in the virtual environment
+The location of the virtual environment will be path
+<code class="docutils literal notranslate"><span class="pre">/path/tojupyterhub/jupyterhub/venv</span></code>:</p>
+<ol class="arabic simple" start="4">
+<li><p>Next we will install the LDAP Authenticatior. After the installation it will also run a pytest
+to confirm its status.</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make install_authenticator
+</pre></div>
+</div>
+<ol class="arabic simple" start="5">
+<li><p>Next we will install Spawner.</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make install_spawner
+</pre></div>
+</div>
 </section>
 <section id="start-the-hub-server">
 <h2>Start the Hub server<a class="headerlink" href="#start-the-hub-server" title="Permalink to this heading">¶</a></h2>
-<p>To start the Hub server, run the command:</p>
+<p>To start the Hub server, first activate the <cite>virtual environment</cite> by the command:</p>
 <blockquote>
-<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>jupyterhub
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">source</span> /path/to/jupyterhub/venv/bin/activate
 </pre></div>
 </div>
 </div></blockquote>
-<p>Visit <a class="reference external" href="https://localhost:8000">https://localhost:8000</a> in your browser, and sign in with your unix credentials.</p>
-<p>To allow multiple users to sign into the Hub server, you must start <cite>jupyterhub</cite> as a <em>privileged user</em>, such as root:</p>
+<p>If you are using fish shell, use <code class="docutils literal notranslate"><span class="pre">activate.fish</span></code> instead. Then start the
+Hub server by the command:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>jupyterhub -f /path/to/jupyterhub/testing/jupyterhub_config.py
+</pre></div>
+</div>
+</div></blockquote>
+<p>or you may also use <code class="docutils literal notranslate"><span class="pre">jupyterhub</span></code> just as a command to test the hub. For more
+information use <code class="docutils literal notranslate"><span class="pre">jupyterhub</span> <span class="pre">-help</span></code>.</p>
+<p>Visit <a class="reference external" href="https://localhost:8000">https://localhost:8000</a> in your browser, and sign in with your unique credentials.</p>
+<p>To allow multiple users to sign into the Hub server,
+you must start <cite>jupyterhub</cite> as a <em>privileged user</em>, such as root:</p>
 <blockquote>
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo jupyterhub
 </pre></div>
 </div>
 </div></blockquote>
-<p>The <a class="reference external" href="https://github.com/jupyterhub/jupyterhubwiki">wiki</a> Using-sudo-to-run-JupyterHub-without-root-privileges describes how to run the server as a <em>less privileged user</em>, which requires additional configuration of the system.</p>
+<p>The <a class="reference external" href="https://github.com/jupyterhub/jupyterhubwiki">wiki</a>
+Using-sudo-to-run-JupyterHub-without-root-privileges describes how to
+run the server as a <em>less privileged user</em>, which requires additional configuration of the system.</p>
 </section>
-<section id="basic-configuration">
-<h2>Basic Configuration<a class="headerlink" href="#basic-configuration" title="Permalink to this heading">¶</a></h2>
-<p>The [getting started document](docs/source/getting-started.md) contains
-detailed information abouts configuring a JupyterHub deployment.</p>
-<p>The JupyterHub <strong>tutorial</strong> provides a video and documentation that explains and illustrates the fundamental steps for installation and configuration.
-<a class="reference external" href="https://github.com/jupyterhub/jupyterhub-tutorial">repo</a>
-<a class="reference external" href="http://jupyterhub-tutorial.readthedocs.io/en/latest/">Tutorial documentation</a></p>
+<section id="optional-configuration">
+<h2>Optional Configuration<a class="headerlink" href="#optional-configuration" title="Permalink to this heading">¶</a></h2>
+<p>The <a class="reference external" href="https://jupyterhub.readthedocs.io/en/stable/">Jupyterhub Documentation</a> contains
+detailed information about configuring a JupyterHub deployment.</p>
 <p>Generate a default configuration file</p>
 <dl>
 <dt>Generate a default config file:</dt><dd><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>jupyterhub --generate-config
@@ -191,33 +209,6 @@ concept, are:</p>
 <p>Alternate Installation using Docker</p>
 <p>A ready to go <a class="reference external" href="https://hub.docker.com/r/jupyterhub/jupyterhub/">docker image for JupyterHub</a>
 gives a straightforward deployment of JupyterHub.</p>
-<p><em>Note: This `jupyterhub/jupyterhub` docker image is only an image for running the Hub service itself. It does not provide the other Jupyter components, such as Notebook installation, which are needed by the single-user servers.To run the single-user servers, which may be on the same system as the Hub or not, Jupyter Notebook version 4 or greater must be installed.</em></p>
-</section>
-<section id="starting-jupyterhub-with-docker">
-<h2>Starting JupyterHub with docker<a class="headerlink" href="#starting-jupyterhub-with-docker" title="Permalink to this heading">¶</a></h2>
-<p>The JupyterHub docker image can be started with the following command:</p>
-<blockquote>
-<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker run -d --name jupyterhub jupyterhub/jupyterhub jupyterhub
-</pre></div>
-</div>
-</div></blockquote>
-<p>This command will create a container named <cite>jupyterhub</cite> that you can
-<em>stop and resume</em> with</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker stop/start
-</pre></div>
-</div>
-<p>The Hub service will be listening on all interfaces at port 8000, which makes this a good choice for <em>testing JupyterHub on your desktop or laptop</em>.</p>
-<p>If you want to run docker on a computer that has a public IP then you should(as in MUST) <em>secure it with ssl</em> by adding ssl options to your docker configuration or using a ssl enabled proxy.</p>
-<p><a class="reference external" href="https://docs.docker.com/engine/userguide/containers/dockervolumes/">Mounting volumes</a> will allow you to <em>store data outside the docker image (host system) so it will be persistent</em>, even when you start a new image.</p>
-<dl>
-<dt>The command</dt><dd><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker <span class="nb">exec</span> -it jupyterhub bash<span class="sb">`</span>
-</pre></div>
-</div>
-</dd>
-</dl>
-<p>will spawn a root shell in your
-docker container. You can <em>use the root shell to create system users in the container</em>.These accounts will be used for authentication in JupyterHub’s default
-configuration.</p>
 </section>
 </section>
 
@@ -226,7 +217,7 @@ configuration.</p>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="../README.html" class="btn btn-neutral float-left" title="JupyterHub" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="ansible-script.html" class="btn btn-neutral float-right" title="Ansible ansible-script" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="proxyserver.html" class="btn btn-neutral float-right" title="Proxy-Server" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
