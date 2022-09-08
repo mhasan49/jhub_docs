@@ -34,13 +34,14 @@ To install from the source code found in this GitHub repo:
 Auto Installation
 ####################
 
-In order to use ansible script to install the proxy-server, we will use:
+In order to install via ansible script , we will use:
 
 .. code:: bash
     
     make install_proxyserver
 
-Usage
+
+Extra Configuration
 ####################
 
 * Starting the proxy
@@ -49,17 +50,9 @@ Usage
         
         proxy-server start
 
-* Setting a default target
+        configurable-http-proxy --default-target=http://localhost:8888
 
-.. code:: bash 
-        
-     configurable-http-proxy --default-target=http://localhost:8888
-
-* Authenticating via passing a token
-  
-  .. code:: bash
-
-     curl -H "Authorization: token $CONFIGPROXY_AUTH_TOKEN" http://localhost:8001/api/routes
+        curl -H "Authorization: token $CONFIGPROXY_AUTH_TOKEN" http://localhost:8001/api/routes
 
 
 For more information on configurable-http-proxy, see the official documentation:
