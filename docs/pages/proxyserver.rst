@@ -46,7 +46,7 @@ Jupyterhub Configuration
 
 .. code:: yaml
 
-    c.JupyterHub.proxy_api_ip = '
+     c.JupyterHub.proxy_api_ip = '
      c.JupyterHub.proxy_api_port = '
      c.JupyterHub.proxy_api_prefix = '
      c.JupyterHub.proxy_auth_token = '
@@ -72,7 +72,7 @@ Jupyterhub Configuration
      c.JupyterHub.proxy_api_trust_user_provided_headers = '
   
 
-Extra Configuration
+Usage 
 ####################
 
 .. code:: bash 
